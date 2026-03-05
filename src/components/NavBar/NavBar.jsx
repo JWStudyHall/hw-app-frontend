@@ -33,6 +33,9 @@ const NavBar = () => {
             <Link to="/plans">Plans</Link>
           </li>
           <li>
+            <Link to="/workouts">Workouts</Link>
+          </li>
+          <li>
             <Link to="/calendar">Calendar</Link>
           </li>
           <li>
@@ -66,3 +69,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+ 
