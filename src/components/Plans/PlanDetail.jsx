@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router";
 import {
   getPlan,
   deletePlan,
@@ -36,21 +36,20 @@ const PlanDetail = () => {
   };
 
   return (
-  <>
-    <div>
-      <h2>My Plan</h2>
-      <p>Exercises, imgs, details etc.</p>
-    </div>
+    <>
+      <div>
+        <h2>My Plan</h2>
+        <p>Exercises, imgs, details etc.</p>
+      </div>
 
-    <div>
-        <Link to ={`/workout-plans/${planDetail?.plan?.Id}/edit`}>
-        <button>Edit</button>
+      <div>
+        <Link to={`/workout-plans/${planDetail?.plan?.Id}/edit`}>
+          <button>Edit</button>
         </Link>
         <button onClick={handleDelete}>Delete</button>
-    </div>
-
-  </>
-)
+      </div>
+    </>
+  );
 };
 
 export default PlanDetail;
