@@ -18,6 +18,7 @@ import ExerciseLibrary from "./components/ExerciseLibrary/ExerciseLibrary.jsx";
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Profile from "./components/Calendar/Profile.jsx";
 
+
 const App = () => {
   const { user } = useContext(UserContext);
 
