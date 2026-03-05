@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const TemplateBuilder = () => {
-  return (
-    <div>TemplateBuilder</div>
-  )
-}
+  return <div>TemplateBuilder</div>;
+};
 
-export default TemplateBuilder
+export default TemplateBuilder;

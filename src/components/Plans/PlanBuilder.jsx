@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const PlanBuilder = () => {
-  return (
-    <div>PlanBuilder</div>
-  )
-}
+  return <div>PlanBuilder</div>;
+};
 
-export default PlanBuilder
+export default PlanBuilder;

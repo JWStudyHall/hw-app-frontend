@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ExerciseLibrary = () => {
-  return (
-    <div>ExerciseLibrary</div>
-  )
-}
+  return <div>ExerciseLibrary</div>;
+};
 
-export default ExerciseLibrary
+export default ExerciseLibrary;

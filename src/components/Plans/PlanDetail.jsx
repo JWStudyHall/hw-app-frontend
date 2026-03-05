@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const PlanDetail = () => {
-  return (
-    <div>PlanDetail</div>
-  )
-}
+  return <div>PlanDetail</div>;
+};
 
-export default PlanDetail
+export default PlanDetail;

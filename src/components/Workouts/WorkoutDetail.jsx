@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const WorkoutDetail = () => {
-  return (
-    <div>WorkoutDetail</div>
-  )
-}
+  return <div>WorkoutDetail</div>;
+};
 
-export default WorkoutDetail
+export default WorkoutDetail;
