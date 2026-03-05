@@ -2,7 +2,7 @@ import api from "./apiConfig.js";
 
 export const getTemplates = async () => {
   try {
-    const resp = await api.get("/workout-templates/");
+    const resp = await api.get("api/workout-templates/");
     return resp.data;
   } catch (error) {
     throw error;
@@ -11,7 +11,7 @@ export const getTemplates = async () => {
 
 export const getTemplate = async (templateId) => {
   try {
-    const resp = await api.get(`/workout-templates/${templateId}/`);
+    const resp = await api.get(`api/workout-templates/${templateId}/`);
     return resp.data;
   } catch (error) {
     throw error;
@@ -20,7 +20,7 @@ export const getTemplate = async (templateId) => {
 
 export const createTemplate = async (templateData) => {
   try {
-    const resp = await api.post("/workout-templates/", templateData);
+    const resp = await api.post("api/workout-templates/", templateData);
     return resp.data;
   } catch (error) {
     throw error;
@@ -30,7 +30,7 @@ export const createTemplate = async (templateData) => {
 export const updateTemplate = async (templateId, templateData) => {
   try {
     const resp = await api.patch(
-      `/workout-templates/${templateId}/`,
+      `api/workout-templates/${templateId}/`,
       templateData,
     );
     return resp.data;
