@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router";
 import {
   getPlan,
   deletePlan,
@@ -38,8 +38,15 @@ const PlanDetail = () => {
   return (
   <>
     <div>
-      <h2>My Plan</h2>
-      <p>Exercises, imgs, details etc.</p>
+      <h2>{planDetail?.plan?.user?.username}'s Workout Plan</h2>
+      <p>Workout:{planDetail?.plan?.title}</p>
+      <p>Start Date:{new Date(planDetail?.plan?.start_dt).toLocaleString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })}</p>
+      <p>Interval:every {planDetail?.plan?.interval} day(s)</p>
     </div>
 
     <div>
