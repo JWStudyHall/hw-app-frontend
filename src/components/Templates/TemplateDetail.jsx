@@ -15,6 +15,29 @@ const TemplateDetail = () => {
     fetchTemplate();
   }, []);
 
+  function createExerciseBlurb(item) {
+    let ret = "";
+    if (item.sets && item.sets > 0) {
+      ret += item.sets;
+      if (item.reps && item.reps > 0) {
+        ret += " x " + item.reps;
+      }
+      if (item.weight && item.weight_unit) {
+        ret += " @ " + item.weight + " " + item.weight_unit;
+      }
+    }
+
+    if (item.distance_meters) {
+      ret += item.distance_meters + "m";
+    }
+
+    if (item.duration_seconds) {
+      ret += " (" + item.duration_seconds + "s)";
+    }
+
+    return ret;
+  }
+
   if (!template) return <h3>Loading...</h3>;
   return (
     <div>
@@ -23,14 +46,9 @@ const TemplateDetail = () => {
       <ol>
         {template.items.map((item) => (
           <li>
-            {item.exercise_detail.name}:{" "}
-            {item.sets && item.reps ? `${item.sets} x ${item.reps}` : ""}
-            {item.weight && item.weight_unit
-              ? `${item.weight} @ ${item.weight_unit}`
-              : ""}
-            {item.distance_meters && item.duration_seconds
-              ? `${item.distance_meters}m @ ${item.duration_seconds}s`
-              : ""}
+            <h4>{item.exercise_detail.name}: </h4>
+            <p>{createExerciseBlurb(item)}</p>
+            {item.notes && <p>Notes: {item.notes}</p>}
           </li>
         ))}
       </ol>

@@ -6,13 +6,22 @@ const TemplatesList = () => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
   const fetchTemplates = async () => {
-    const templateList = await getTemplates();
-    setTemplates(templateList);
+    try {
+      setLoading(true);
+      const templateList = await getTemplates();
+      setTemplates(templateList);
+    } catch (e) {
+      console.log("Error fetching templates: ", e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchTemplates();
   }, []);
+
+  if (loading) return <h3>Loading...</h3>;
 
   return (
     <div>
@@ -30,7 +39,7 @@ const TemplatesList = () => {
           ))}
         </ul>
       ) : (
-        <h3>Loading...</h3>
+        <h3>No templates found</h3>
       )}
     </div>
   );
