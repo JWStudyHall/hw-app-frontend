@@ -40,6 +40,18 @@ const PlanDetail = () => {
       <div>
         <h2>My Plan</h2>
         <p>Exercises, imgs, details etc.</p>
+        <h2>{planDetail?.plan?.user?.username}'s Workout Plan</h2>
+        <p>Workout:{planDetail?.plan?.title}</p>
+        <p>
+          Start Date:
+          {new Date(planDetail?.plan?.start_dt).toLocaleString("en-US", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </p>
+        <p>Interval:every {planDetail?.plan?.interval} day(s)</p>
       </div>
 
       <div>
