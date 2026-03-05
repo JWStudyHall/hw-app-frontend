@@ -56,7 +56,10 @@ export const addTemplateToPlan = async (linkData) => {
 
 export const updatePlanTemplateLink = async (linkId, linkData) => {
   try {
-    const resp = await api.patch(`/workout-template-plans/${linkId}/`,linkData);
+    const resp = await api.patch(
+      `/workout-template-plans/${linkId}/`,
+      linkData,
+    );
     return resp.date;
   } catch (error) {
     throw error;
@@ -69,6 +72,5 @@ export const removeTemplateFromPlan = async (linkId) => {
     return resp.data;
   } catch (error) {
     throw error;
-    
   }
 };

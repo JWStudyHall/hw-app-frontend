@@ -5,9 +5,7 @@ import { getPlans } from '../../services/planService.js'
 
 
 const PlansList = () => {
-  return (
-    <div>PlansList</div>
-  )
-}
+  return <div>PlansList</div>;
+};
 
-export default PlansList
+export default PlansList;

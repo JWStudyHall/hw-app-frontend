@@ -11,17 +11,45 @@ const NavBar = () => {
   };
 
   return (
-    <nav>
+    <nav style={{ padding: "1rem", borderBottom: "1px solid #ccc" }}>
       {user ? (
-        <ul>
-          <li>Welcome, {user.username}</li>
+        <ul
+          style={{
+            listStyle: "none",
+            display: "flex",
+            gap: "15px",
+            alignItems: "center",
+          }}
+        >
+          <li style={{ fontWeight: "bold" }}>Hi, {user.username}</li>
+
           <li>
-            <Link to="/">Dashboard</Link>
+            <Link to="/exercises">Exercises</Link>
           </li>
-          <li onClick={handleSignOut}>Sign Out</li>
+          <li>
+            <Link to="/templates">Templates</Link>
+          </li>
+          <li>
+            <Link to="/plans">Plans</Link>
+          </li>
+          <li>
+            <Link to="/calendar">Calendar</Link>
+          </li>
+          <li>
+            <Link to="/explore">Explore</Link>
+          </li>
+
+          <li style={{ marginLeft: "auto" }}>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <button onClick={handleSignOut} style={{ cursor: "pointer" }}>
+              Sign Out
+            </button>
+          </li>
         </ul>
       ) : (
-        <ul>
+        <ul style={{ listStyle: "none", display: "flex", gap: "15px" }}>
           <li>
             <Link to="/">Home</Link>
           </li>

@@ -3,15 +3,14 @@ import api from "./apiConfig.js";
 export const getWorkouts = async (start, end) => {
   try {
     const resp = await api.get("/workouts/", {
-    params: {
-      start,
-      end,
-    },
-  });
-  return resp.data;
+      params: {
+        start,
+        end,
+      },
+    });
+    return resp.data;
   } catch (error) {
     throw error;
-    
   }
 };
 
@@ -45,9 +44,8 @@ export const updateWorkout = async (workoutId, workoutData) => {
 export const deleteWorkout = async (workoutId) => {
   try {
     const resp = await api.delete(`/workouts/${workoutId}/`);
-     return resp.data;
+    return resp.data;
   } catch (error) {
     throw error;
-    
   }
 };
