@@ -1,31 +1,51 @@
 import api from "./apiConfig.js";
 
 export const getWorkouts = async (start, end) => {
-  const resp = await api.get("/workouts/", {
-    params: {
-      start,
-      end,
-    },
-  });
-  return resp.data;
+  try {
+    const resp = await api.get("/workouts/", {
+      params: {
+        start,
+        end,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getWorkout = async (workoutId) => {
-  const resp = await api.get(`/workouts/${workoutId}/`);
-  return resp.data;
+  try {
+    const resp = await api.get(`/workouts/${workoutId}/`);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const createWorkout = async (workoutData) => {
-  const resp = await api.post("/workouts/", workoutData);
-  return resp.data;
+  try {
+    const resp = await api.post("/workouts/", workoutData);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const updateWorkout = async (workoutId, workoutData) => {
-  const resp = await api.patch(`/workouts/${workoutId}/`, workoutData);
-  return resp.data;
+  try {
+    const resp = await api.patch(`/workouts/${workoutId}/`, workoutData);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const deleteWorkout = async (workoutId) => {
-  const resp = await api.delete(`/workouts/${workoutId}/`);
-  return resp.data;
+  try {
+    const resp = await api.delete(`/workouts/${workoutId}/`);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
 };
