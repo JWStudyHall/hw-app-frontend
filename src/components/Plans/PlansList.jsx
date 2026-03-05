@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { getPlans } from "../../services/planService.js";
@@ -13,9 +12,9 @@ const PlansList = () => {
     };
 
     fetchPlans();
-  }, [])
+  }, []);
 
-  if (!plans.length) return <h1 style= 
+  if (!plans.length) return <h1>Please Make a Plan</h1>;
 
   return <div>PlansList</div>;
 };
