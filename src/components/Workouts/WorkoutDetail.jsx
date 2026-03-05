@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { getWorkout } from "../../services/workoutService.js";
 
 const WorkoutDetail = () => {
   const { workoutId } = useParams();
@@ -10,12 +9,9 @@ const WorkoutDetail = () => {
   useEffect(() => {
     const fetchWorkout = async () => {
       try {
-        setLoading(true);
-        const fetchedWorkout = await getWorkout(workoutId);
-        setWorkout(fetchedWorkout);
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching workout:", err);
-      } finally {
         setLoading(false);
       }
     };
