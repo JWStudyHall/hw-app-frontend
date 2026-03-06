@@ -1,47 +1,52 @@
 import { useState, useEffect } from "react";
-import { getWorkouts } from "../../services/workoutService";
 import { Link } from "react-router";
+import { getWorkouts } from "../../services/workoutService.js";
 
 const WorkoutList = () => {
   const [workouts, setWorkouts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const fetchWorkouts = async () => {
-    try {
-      setLoading(true);
-      const workoutList = await getWorkouts();
-      setWorkouts(workoutList);
-    } catch (e) {
-      console.log("Error fetching workouts: ", e);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchWorkouts = async () => {
+      try {
+        const data = await getWorkouts();
+        setWorkouts(data || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchWorkouts();
   }, []);
 
-  if (loading) return <h3>Loading...</h3>;
+  if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
-      {workouts && workouts.length > 0 ? (
-        <ul>
-          {workouts.map((workout) => (
-            <li key={workout.id}>
-              <div>
-                <h3>
-                  <Link to={`/workouts/${workout.id}`}>{workout.title}</Link>
-                </h3>
-                <p>{workout.description}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <h3>No workouts found</h3>
-      )}
-    </div>
+    <main>
+      <h1>Workouts</h1>
+      <Link to="/workouts/new">+ New Workout</Link>
+      <section>
+        {workouts.length > 0 ? (
+          workouts.map((workout) => (
+            <div
+              key={workout.id}
+              style={{
+                border: "1px solid #ccc",
+                margin: "10px",
+                padding: "10px",
+              }}
+            >
+              <h3>{workout.title}</h3>
+              <p>Status: {workout.status}</p>
+              <Link to={`/workouts/${workout.id}`}>View Details</Link>
+            </div>
+          ))
+        ) : (
+          <p>No workouts found.</p>
+        )}
+      </section>
+    </main>
   );
 };
 

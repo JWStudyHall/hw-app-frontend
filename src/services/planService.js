@@ -2,7 +2,7 @@ import api from "./apiConfig.js";
 
 export const getPlans = async () => {
   try {
-    const resp = await api.get("/workout=plans/");
+    const resp = await api.get("/api/workout-plans/");
     return resp.data;
   } catch (error) {
     throw error;
@@ -11,7 +11,7 @@ export const getPlans = async () => {
 
 export const getPlan = async (planId) => {
   try {
-    const resp = await api.get(`/workout-plans/${planId}/`);
+    const resp = await api.get(`/api/workout-plans/${planId}/`);
     return resp.data;
   } catch (error) {
     throw error;
@@ -20,7 +20,7 @@ export const getPlan = async (planId) => {
 
 export const createPlan = async (planData) => {
   try {
-    const resp = await api.post("/workout-plans/", planData);
+    const resp = await api.post("/api/workout-plans/", planData);
     return resp.data;
   } catch (error) {
     throw error;
@@ -29,7 +29,7 @@ export const createPlan = async (planData) => {
 
 export const updatePlan = async (planId, planData) => {
   try {
-    const resp = await api.patch(`/workout-plans/${planId}/`, planData);
+    const resp = await api.patch(`/api/workout-plans/${planId}/`, planData);
     return resp.data;
   } catch (error) {
     throw error;
@@ -38,7 +38,7 @@ export const updatePlan = async (planId, planData) => {
 
 export const deletePlan = async (planId) => {
   try {
-    const resp = await api.delete(`/workout-plans/${planId}`);
+    const resp = await api.delete(`/api/workout-plans/${planId}`);
     return resp.data;
   } catch (error) {
     throw error;
@@ -47,7 +47,7 @@ export const deletePlan = async (planId) => {
 
 export const addTemplateToPlan = async (linkData) => {
   try {
-    const resp = await api.post("/workout-template-plans/", linkData);
+    const resp = await api.post("/api/workout-template-plans/", linkData);
     return resp.data;
   } catch (error) {
     throw error;
@@ -57,7 +57,7 @@ export const addTemplateToPlan = async (linkData) => {
 export const updatePlanTemplateLink = async (linkId, linkData) => {
   try {
     const resp = await api.patch(
-      `/workout-template-plans/${linkId}/`,
+      `/api/workout-template-plans/${linkId}/`,
       linkData,
     );
     return resp.date;
@@ -68,7 +68,7 @@ export const updatePlanTemplateLink = async (linkId, linkData) => {
 
 export const removeTemplateFromPlan = async (linkId) => {
   try {
-    const resp = await api.delete(`/workout-template-plans/${linkId}/`);
+    const resp = await api.delete(`/api/workout-template-plans/${linkId}/`);
     return resp.data;
   } catch (error) {
     throw error;
