@@ -11,7 +11,7 @@ export const getMuscleGroups = async () => {
 
 export const getExercises = async () => {
   try {
-    const resp = await api.get("/exercises/");
+    const resp = await api.get("/api/exercises/");
     return resp.data;
   } catch (error) {
     throw error;
