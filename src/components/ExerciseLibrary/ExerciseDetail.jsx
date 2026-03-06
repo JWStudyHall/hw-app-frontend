@@ -1,25 +1,47 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams, Link } from "react-router";
 import { getExerciseById } from "../../services/exerciseService";
 
 const ExerciseDetail = () => {
-  const [exercise, setExercise] = useState(null);
   const { exerciseId } = useParams();
-  const navigate = useNavigate();
-
-  const fetchExercise = async () => {
-    const fetchedExercise = await getExerciseById(exerciseId);
-    setExercise(fetchedExercise);
-  };
+  const [exercise, setExercise] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    const fetchExercise = async () => {
+      setLoading(true);
+      setError("");
+
+      try {
+        const exerciseData = await getExerciseById(exerciseId);
+        setExercise(exerciseData);
+      } catch (err) {
+        setError("Could not load exercise details.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchExercise();
-  }, []);
+  }, [exerciseId]);
+
+  if (loading) return <h3>Loading exercise...</h3>;
+  if (error) return <p style={{ color: "crimson" }}>{error}</p>;
+  if (!exercise) return <p>Exercise not found.</p>;
+
   return (
-    <>
-    <h1>Hello World</h1>
-    </>
-  )
+    <div>
+      <p>
+        <Link to="/exercises">Back to Exercise Library</Link>
+      </p>
+
+      <h2>{exercise.name}</h2>
+      <p>Type: {exercise.exercise_type || "N/A"}</p>
+      <p>Equipment: {exercise.equipment || "N/A"}</p>
+      <p>{exercise.instructions || "No instructions provided."}</p>
+    </div>
+  );
 };
 
 export default ExerciseDetail;

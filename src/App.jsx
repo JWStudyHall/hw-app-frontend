@@ -71,7 +71,7 @@ const App = () => {
         </Route>
 
         {/* CATCH-ALL: Redirects unknown URLs to home */}
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
     </>
   );
