@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { getTemplate } from "../../services/templateService.js";
+import { UserContext } from "../../contexts/UserContext.jsx";
 
 const TemplateDetail = () => {
   const [template, setTemplate] = useState(null);
   const { templateId } = useParams();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const fetchTemplate = async () => {
     const fetchedTemplate = await getTemplate(templateId);
@@ -90,6 +92,7 @@ const TemplateDetail = () => {
               </p>
             )}
           </div>
+          {user?.id === template.user && (
           <button
             onClick={() => navigate(`/templates/${templateId}/edit`)}
             style={{
@@ -112,6 +115,7 @@ const TemplateDetail = () => {
           >
             Edit Template
           </button>
+          )}
         </div>
 
         {template.description && (

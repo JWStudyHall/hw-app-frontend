@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { getPlan, deletePlan } from "../../services/planService";
+import { UserContext } from "../../contexts/UserContext.jsx";
 
 const PlanDetail = () => {
   const [plan, setPlan] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
-
+  const { user } = useContext(UserContext);
   let { planId } = useParams();
   let navigate = useNavigate();
 
@@ -120,6 +121,7 @@ const PlanDetail = () => {
 
       {error ? <p style={{ color: "crimson" }}>{error}</p> : null}
 
+      {user?.id === plan.user && (
       <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
         <Link to={`/plans/${plan.id}/edit`}>
           <button>Edit Plan</button>
@@ -128,6 +130,7 @@ const PlanDetail = () => {
           {deleting ? "Deleting..." : "Delete Plan"}
         </button>
       </div>
+      )}
     </div>
   );
 };
