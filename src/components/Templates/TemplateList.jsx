@@ -25,9 +25,9 @@ const TemplateList = () => {
 
   return (
     <div>
+      <Link to="/templates/new">Create Template</Link>
       {templates && templates.length > 0 ? (
         <>
-          <Link to="/templates/new">Create Template</Link>
           <ul>
             {templates.map((template) => (
               <li key={template.id}>
