@@ -4,7 +4,7 @@ import { getPlans } from "../../services/planService.js";
 
 const PlansList = () => {
   const [plans, setPlans] = useState([]);
-  const [loading, setLoading] = useState(True);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -39,6 +39,7 @@ const PlansList = () => {
   return (
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "1rem" }}>
       <h1>Public Workout Plans</h1>
+      <Link to="/plans/new">+ New Plan</Link>
       <p>Browse plans created by the community.</p>
       <div style={{ display: "grid", gap: "0.75rem" }}>
         {plans.map((plan) => (
