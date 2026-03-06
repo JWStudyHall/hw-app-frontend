@@ -14,9 +14,22 @@ const PlansList = () => {
     fetchPlans();
   }, []);
 
-  if (!plans.length) return <h1>Please Make a Plan</h1>;
+  if (!plans.length)
+    return (
+      <h1 style={{ textAlign: "center" }}>
+        Let’s get moving! Create your first workout plan.
+      </h1>
+    );
 
-  return <div>PlansList</div>;
+  return (
+    <>
+      <div>
+        <h1>{plans?.user?.username}'s Workout Plans</h1>
+        <div></div>
+      </div>
+      ;
+    </>
+  );
 };
 
 export default PlansList;
