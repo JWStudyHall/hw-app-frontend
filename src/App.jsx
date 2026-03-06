@@ -44,7 +44,7 @@ const App = () => {
               />
 
               {/* Templates */}
-              <Route path="templates" element={<TemplatesList />} />
+              <Route path="templates" element={<TemplateList />} />
               <Route path="templates/new" element={<TemplateBuilder />} />
               <Route
                 path="templates/:templateId"
