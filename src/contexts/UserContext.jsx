@@ -16,7 +16,11 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUser(verifyUser());
+    const fetchUser = async () => {
+      const user = await verifyUser();
+      setUser(user);
+    };
+    fetchUser();
     // console.log("This is the use effect");
   }, []);
 

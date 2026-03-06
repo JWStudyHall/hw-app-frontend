@@ -29,7 +29,7 @@ export const createTemplate = async (templateData) => {
 
 export const updateTemplate = async (templateId, templateData) => {
   try {
-    const resp = await api.patch(
+    const resp = await api.put(
       `api/workout-templates/${templateId}/`,
       templateData,
     );
@@ -41,7 +41,16 @@ export const updateTemplate = async (templateId, templateData) => {
 
 export const deleteTemplate = async (templateId) => {
   try {
-    const resp = await api.delete(`/workout-templates/${templateId}/`);
+    const resp = await api.delete(`api/workout-templates/${templateId}/`);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getTemplateItem = async (itemId) => {
+  try {
+    const resp = await api.get(`api/workout-template-items/${itemId}/`);
     return resp.data;
   } catch (error) {
     throw error;
@@ -50,7 +59,7 @@ export const deleteTemplate = async (templateId) => {
 
 export const addTemplateItem = async (itemData) => {
   try {
-    const resp = await api.post("/workout-template-items/", itemData);
+    const resp = await api.post("api/workout-template-items/", itemData);
     return resp.data;
   } catch (error) {
     throw error;
@@ -59,8 +68,8 @@ export const addTemplateItem = async (itemData) => {
 
 export const updateTemplateItem = async (itemId, itemData) => {
   try {
-    const resp = await api.patch(
-      `/workout-template-items/${itemId}/`,
+    const resp = await api.put(
+      `api/workout-template-items/${itemId}/`,
       itemData,
     );
     return resp.data;
@@ -71,7 +80,7 @@ export const updateTemplateItem = async (itemId, itemData) => {
 
 export const deleteTemplateItem = async (itemId) => {
   try {
-    const resp = await api.delete(`/workout-template-items/${itemId}/`);
+    const resp = await api.delete(`api/workout-template-items/${itemId}/`);
     return resp.data;
   } catch (error) {
     throw error;
