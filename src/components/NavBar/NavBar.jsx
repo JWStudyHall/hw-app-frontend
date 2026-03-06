@@ -32,6 +32,25 @@ const NavBar = () => {
           <li>
             <Link to="/plans">Plans</Link>
           </li>
+
+          {/* THE NEW BUTTON */}
+          <li>
+            <Link to="/plans/new">
+              <button
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: "4px",
+                }}
+              >
+                + New Plan
+              </button>
+            </Link>
+          </li>
+
           <li>
             <Link to="/workouts">Workouts</Link>
           </li>
@@ -69,4 +88,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
- 
