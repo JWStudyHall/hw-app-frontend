@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router";
 import { UserContext } from "./contexts/UserContext.jsx";
+import "./App.css";
 import NavBar from "./components/NavBar/NavBar.jsx";
 import SignUpForm from "./components/SignUpForm/SignUpForm.jsx";
 import SignInForm from "./components/SignInForm/SignInForm.jsx";
@@ -11,7 +12,7 @@ import WorkoutDetail from "./components/Workouts/WorkoutDetail.jsx";
 import WorkoutForm from "./components/Workouts/WorkoutForm.jsx";
 import TemplateBuilder from "./components/Templates/TemplateBuilder.jsx";
 import TemplateDetail from "./components/Templates/TemplateDetail.jsx";
-import TemplatesList from "./components/Templates/TemplatesList.jsx";
+import TemplateList from "./components/Templates/TemplateList.jsx";
 import PlanBuilder from "./components/Plans/PlanBuilder.jsx";
 import PlanBuilderEdit from "./components/Plans/PlanBuilderEdit.jsx";
 import PlanDetail from "./components/Plans/PlanDetail.jsx";
@@ -23,7 +24,6 @@ import Profile from "./components/Calendar/Profile.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
-
   return (
     <>
       <NavBar />

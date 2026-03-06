@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { getWorkout } from "../../services/workoutService.js";
 
 import { getWorkout } from "../../services/workoutService.js";
 
