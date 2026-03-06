@@ -31,9 +31,12 @@ const PlansList = () => {
 
   if (!plans.length)
     return (
-      <h1 style={{ textAlign: "center" }}>
-        Let's get moving! Create your first workout plan.
-      </h1>
+      <>
+        <Link to="/plans/new">+ New Plan</Link>
+        <h1 style={{ textAlign: "center" }}>
+          Let's get moving! Create your first workout plan.
+        </h1>
+      </>
     );
 
   return (
@@ -57,7 +60,9 @@ const PlansList = () => {
             >
               <h3 style={{ margin: "0 0 0.25rem 0" }}>{plan.title}</h3>
               <p style={{ margin: "0 0 0.35rem 0" }}>
-                {plan.user?.username ? `By ${plan.user.username}` : "Public plan"}
+                {plan.user?.username
+                  ? `By ${plan.user.username}`
+                  : "Public plan"}
               </p>
               <p style={{ margin: 0 }}>
                 {plan.template_links?.length || 0} template

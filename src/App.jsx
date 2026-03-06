@@ -21,6 +21,7 @@ import ExerciseDetail from "./components/ExerciseLibrary/ExerciseDetail.jsx";
 import ExerciseLibrary from "./components/ExerciseLibrary/ExerciseLibrary.jsx";
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Profile from "./components/Calendar/Profile.jsx";
+import Explore from "./components/Explore/Explore.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -66,6 +67,9 @@ const App = () => {
               <Route path="workouts" element={<WorkoutList />} />
               <Route path="workouts/new" element={<WorkoutForm />} />
               <Route path="workouts/:workoutId" element={<WorkoutDetail />} />
+
+              {/* Explore */}
+              <Route path="explore" element={<Explore />} />
             </>
           )}
         </Route>

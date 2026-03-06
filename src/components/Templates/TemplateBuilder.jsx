@@ -16,6 +16,7 @@ const INITIAL_ITEM = {
   weight: "",
   weight_unit: "lb",
   distance: "",
+  distance_unit: "km",
   duration: "",
   notes: "",
 };
@@ -67,6 +68,7 @@ const TemplateBuilder = () => {
             weight: item.weight ?? "",
             weight_unit: item.weight_unit || "lb",
             distance: item.distance ?? "",
+            distance_unit: item.distance_unit || "km",
             duration: item.duration ?? "",
             notes: item.notes || "",
             order: item.order ?? index,
@@ -128,6 +130,7 @@ const TemplateBuilder = () => {
     weight: parseWeight(item.weight),
     weight_unit: item.weight_unit || "lb",
     distance: parseNumericField(item.distance),
+    distance_unit: item.distance_unit || "km",
     duration: parseNumericField(item.duration),
     notes: item.notes || "",
     order: item.order ?? index,
@@ -524,7 +527,7 @@ const ExerciseCard = ({
         />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "16px" }}>
         <InputField
           label="Distance (meters)"
           type="number"
@@ -532,15 +535,24 @@ const ExerciseCard = ({
           onChange={(e) => onChange(index, "distance", e.target.value)}
           min="0"
         />
-        <InputField
+        <SelectField
+          label="Unit"
+          value={item.distance_unit}
+          onChange={(e) => onChange(index, "distance_unit", e.target.value)}
+          options={[
+            { id: "km", name: "km" },
+            { id: "mi", name: "mi" },
+          ]}
+        />
+
+      </div>
+      <InputField
           label="Duration (seconds)"
           type="number"
           value={item.duration}
           onChange={(e) => onChange(index, "duration", e.target.value)}
           min="0"
         />
-      </div>
-
       <TextAreaField
         label="Notes"
         value={item.notes}
