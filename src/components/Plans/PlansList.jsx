@@ -37,7 +37,6 @@ const PlansList = () => {
     );
 
   return (
-<<<<<<< HEAD
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "1rem" }}>
       <h1>Public Workout Plans</h1>
       <p>Browse plans created by the community.</p>
@@ -66,12 +65,6 @@ const PlansList = () => {
             </article>
           </Link>
         ))}
-=======
-    <>
-      <div>
-        <h1>{plans?.user?.username}'s Workout Plans</h1>
-        <div></div>
->>>>>>> 09849087cfaaea1b059b1e0344ad5d4c00b0e23d
       </div>
     </div>
   );
