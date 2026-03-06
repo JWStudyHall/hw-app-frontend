@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { getPlans } from "../../services/planService.js";
@@ -26,9 +25,7 @@ const PlansList = () => {
     <>
       <div>
         <h1>{plans?.user?.username}'s Workout Plans</h1>
-        <div>
-           
-        </div>
+        <div></div>
       </div>
       ;
     </>
