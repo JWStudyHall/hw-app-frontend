@@ -32,6 +32,7 @@ const NavBar = () => {
           <li>
             <Link to="/plans">Plans</Link>
           </li>
+
           <li>
             <Link to="/workouts">Workouts</Link>
           </li>
@@ -69,4 +70,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
- 

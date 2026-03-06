@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router";
-import {
-  getPlan,
-  deletePlan,
-} from "../../services/planService";
+import { getPlan, deletePlan } from "../../services/planService";
 
 const PlanDetail = () => {
-  const [planDetail, setPlanDetail] = useState(null);
+  const [plan, setPlan] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
-  const [error, setError]= useState("");
+  const [error, setError] = useState("");
 
   let { planId } = useParams();
   let navigate = useNavigate();
@@ -32,7 +29,7 @@ const PlanDetail = () => {
     fetchPlan();
   }, [planId]);
 
- const handleDelete = async () => {
+  const handleDelete = async () => {
     const confirmed = window.confirm(
       "Delete this plan? This cannot be undone.",
     );
@@ -68,7 +65,7 @@ const PlanDetail = () => {
     ? [...plan.template_links].sort((a, b) => a.order - b.order)
     : [];
 
- return (
+  return (
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "1rem" }}>
       <h2>{plan.title}</h2>
       <p>{plan.is_public ? "Public plan" : "Private plan"}</p>
@@ -109,7 +106,9 @@ const PlanDetail = () => {
               }}
             >
               <p style={{ margin: 0 }}>
-                <strong>{link.template_detail?.title || "Untitled template"}</strong>
+                <strong>
+                  {link.template_detail?.title || "Untitled template"}
+                </strong>
               </p>
               <p style={{ margin: "0.25rem 0 0 0" }}>
                 Order: {link.order} | Time: {link.time || "N/A"}
