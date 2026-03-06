@@ -5,6 +5,7 @@ import { Link } from "react-router";
 const TemplateList = () => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
+  
   const fetchTemplates = async () => {
     try {
       setLoading(true);
