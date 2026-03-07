@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -8,6 +9,7 @@ import { getWorkouts } from "../../services/workoutService.js";
 export default function Calendar() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const fetchWorkouts = async (start, end) => {
     setLoading(true);
@@ -43,6 +45,12 @@ export default function Calendar() {
     fetchWorkouts(dateInfo.start, dateInfo.end);
   };
 
+  // Handle event clicks - navigate to workout detail page
+  const handleEventClick = (clickInfo) => {
+    const workoutId = clickInfo.event.id;
+    navigate(`/workouts/${workoutId}`);
+  };
+
   return (
     <div style={{ padding: "20px" }}>
       <h2>Workout Schedule</h2>
@@ -52,7 +60,8 @@ export default function Calendar() {
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         events={events}
-        datesSet={handleDatesSet} // Called when date range changes
+        datesSet={handleDatesSet}
+        eventClick={handleEventClick} // Add this handler
         editable={true}
         selectable={true}
         headerToolbar={{

@@ -30,9 +30,6 @@ const NavBar = () => {
             <Link to="/workouts">Workouts</Link>
           </li>
           <li>
-            <Link to="/calendar">Calendar</Link>
-          </li>
-          <li>
             <Link to="/explore">Explore</Link>
           </li>
 
