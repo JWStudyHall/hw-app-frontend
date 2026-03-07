@@ -1,4 +1,4 @@
-import CardList from "../CardList/CardList.jsx";
+import CardList from "../shared/CardList/CardList.jsx";
 import { useState, useEffect, useContext } from "react";
 import { useSearchParams } from "react-router";
 import { getPlans, deletePlan, generateWorkoutsFromPlan } from "../../services/planService";
@@ -85,7 +85,6 @@ const PlansList = () => {
         generateWorkouts: {
           label: "Generate Workouts",
           action: "generate",
-          requiresOwnership: true,
           condition: (item) => item.template_links?.length > 0
         }
       }}
