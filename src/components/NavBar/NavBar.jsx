@@ -27,13 +27,6 @@ const NavBar = () => {
             <Link to="/exercises">Exercises</Link>
           </li>
           <li>
-            <Link to="/templates">Templates</Link>
-          </li>
-          <li>
-            <Link to="/plans">Plans</Link>
-          </li>
-
-          <li>
             <Link to="/workouts">Workouts</Link>
           </li>
           <li>

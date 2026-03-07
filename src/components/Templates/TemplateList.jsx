@@ -1,79 +1,90 @@
-import { useState, useEffect } from "react";
-import { getTemplates } from "../../services/templateService";
-import { Link } from "react-router";
-import "./TemplateList.css";
+import CardList from "../CardList/CardList.jsx";
+import { useState, useEffect, useContext  } from "react";
+import { useSearchParams } from "react-router";
+import { getTemplates, deleteTemplate } from "../../services/templateService.js";
+import { UserContext } from "../../contexts/UserContext.jsx";
+
 const TemplateList = () => {
+  const { user } = useContext(UserContext);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
+  const scope = searchParams.get("scope") || "user";
 
-  const fetchTemplates = async () => {
-    try {
+  useEffect(() => {
+    const fetchTemplates = async () => {
       setLoading(true);
-      const templateList = await getTemplates();
-      setTemplates(templateList);
-    } catch (e) {
-      console.log("Error fetching templates: ", e);
-    } finally {
-      setLoading(false);
+      try {
+        const templateList = await getTemplates(scope);
+        setTemplates(templateList);
+      } catch (e) {
+        console.log("Error fetching templates: ", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTemplates();
+  }, [scope]);
+
+  const handleAction = async (action, item) => {
+    if (action === "delete") {
+      const confirmed = window.confirm(
+        "Delete this template? This cannot be undone."
+      );
+      if (!confirmed) return;
+      try {
+        await deleteTemplate(item.id);
+        setTemplates(templates.filter(t => t.id !== item.id));
+      } catch (err) {
+        console.error("Failed to delete template:", err);
+      }
     }
   };
 
-  useEffect(() => {
-    fetchTemplates();
-  }, []);
-
-  if (loading) return <h3>Loading...</h3>;
-
   return (
-    <div className="template-list">
-      {/* Header row */}
-      <div className="template-list__header">
-        <h2 className="template-list__title">Templates</h2>
-        <Link to="/templates/new" className="template-list__create-btn">
-          + Create Template
-        </Link>
-      </div>
-
-      {templates && templates.length > 0 ? (
-        <div className="template-list__grid">
-          {templates.map((template) => (
-            <div key={template.id} className="template-card">
-              <div className="template-card__body">
-                <h3 className="template-card__title">
-                  <Link
-                    to={`/templates/${template.id}`}
-                    className="template-card__link"
-                  >
-                    {template.title}
-                  </Link>
-                </h3>
-                {template.description && (
-                  <p className="template-card__description">
-                    {template.description}
-                  </p>
-                )}
-              </div>
-              <div className="template-card__footer">
-                <Link
-                  to={`/templates/${template.id}`}
-                  className="template-card__action"
-                >
-                  View details
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="template-list__empty">
-          <h3>No templates found</h3>
-          <p>You haven’t created any templates yet.</p>
-          <Link to="/templates/new" className="template-list__create-btn">
-            Create your first template
-          </Link>
-        </div>
-      )}
-    </div>
+    <CardList
+      items={templates}
+      itemType="template"
+      cardFields={{
+        title: { render: (item) => item.title },
+        description: { 
+          render: (item) => item.description,
+          optional: true 
+        }
+      }}
+      actions={{
+        view: {
+          label: "View details",
+          path: (item) => `/templates/${item.id}`,
+          alwaysVisible: true
+        },
+        edit: {
+          label: "Edit",
+          path: (item) => `/templates/${item.id}/edit`,
+          requiresOwnership: true
+        },
+        delete: {
+          label: "Delete",
+          action: "delete",
+          requiresOwnership: true,
+          requiresConfirmation: true
+        }
+      }}
+      onAction={handleAction}
+      createPath="/templates/new"
+      createLabel="+ Create Template"
+      onScopeChange={(newScope) => setSearchParams({ scope: newScope })}
+      scope={scope}
+      title="Templates"
+      loading={loading}
+      user={user}
+      layout="grid"
+      emptyState={{
+        title: "No templates found",
+        message: "You haven't created any templates yet.",
+        action: { label: "Create your first template", path: "/templates/new" }
+      }}
+    />
   );
 };
 

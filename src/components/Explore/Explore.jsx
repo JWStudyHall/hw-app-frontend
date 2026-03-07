@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { getWorkouts } from "../../services/workoutService.js";
+import { getExercises } from "../../services/exerciseService.js";
 import { getTemplates } from "../../services/templateService.js";
 import { getPlans } from "../../services/planService.js";
 
 const Explore = () => {
-  const [recentWorkouts, setRecentWorkouts] = useState([]);
+  const [featuredExercises, setFeaturedExercises] = useState([]);
   const [featuredTemplates, setFeaturedTemplates] = useState([]);
   const [featuredPlans, setFeaturedPlans] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,20 +17,15 @@ const Explore = () => {
       setError("");
 
       try {
-        const [workoutsData, templatesData, plansData] = await Promise.all([
-          getWorkouts(),   // all workouts for the current user
-          getTemplates(),  // all templates (you can later filter by is_public if needed)
-          getPlans(),      // all plans (we'll filter to public below)
+        const [exercisesData, templatesData, plansData] = await Promise.all([
+          getExercises(),   // all workouts for the current user
+          getTemplates("public"),  // all templates (you can later filter by is_public if needed)
+          getPlans("public"),      // all plans (we'll filter to public below)
         ]);
 
         // Recent Workouts: sort by start_dt (or created_at as fallback), take top 3
-        const workouts = Array.isArray(workoutsData) ? workoutsData : [];
-        const sortedWorkouts = [...workouts].sort((a, b) => {
-          const aDate = new Date(a.start_dt || a.created_at || 0);
-          const bDate = new Date(b.start_dt || b.created_at || 0);
-          return bDate - aDate;
-        });
-        setRecentWorkouts(sortedWorkouts.slice(0, 3));
+        const exercises = Array.isArray(exercisesData) ? exercisesData : [];
+        setFeaturedExercises(exercises.slice(0, 3));
 
         // Featured Templates: latest templates (top 3)
         const templates = Array.isArray(templatesData) ? templatesData : [];
@@ -89,7 +84,7 @@ const Explore = () => {
   };
 
   return (
-    <main style={{ padding: "20px" }}>
+    <main style={{ padding: "20px", maxWidth: "50vw", margin: "0 1rem" }}>
       <h2>Explore</h2>
       <p>Jump back into your training or discover new ideas.</p>
 
@@ -103,19 +98,19 @@ const Explore = () => {
             marginBottom: "8px",
           }}
         >
-          <h3 style={{ margin: 0 }}>Recent Workouts</h3>
-          <Link to="/workouts" style={{ fontSize: "0.9rem" }}>
-            View all workouts
+          <h3 style={{ margin: 0 }}>Recent Exercises</h3>
+          <Link to="/exercises" style={{ fontSize: "0.9rem" }}>
+            View all exercises
           </Link>
         </header>
 
-        {recentWorkouts.length === 0 ? (
-          <p>No workouts yet. Schedule your first workout!</p>
+        {featuredExercises.length === 0 ? (
+          <p>No exercises yet. Create an exercise or make it public to share.</p>
         ) : (
           <div style={{ display: "grid", gap: "0.75rem" }}>
-            {recentWorkouts.map((workout) => (
+            {featuredExercises.map((exercise) => (
               <article
-                key={workout.id}
+                key={exercise.id}
                 style={{
                   border: "1px solid #ddd",
                   borderRadius: "8px",
@@ -123,11 +118,10 @@ const Explore = () => {
                 }}
               >
                 <h4 style={{ margin: "0 0 0.25rem 0" }}>
-                  <Link to={`/workouts/${workout.id}`}>{workout.title}</Link>
+                  <Link to={`/exercises/${exercise.id}`}>{exercise.name}</Link>
                 </h4>
                 <p style={{ margin: 0, fontSize: "0.9rem", color: "#555" }}>
-                  {formatDateTime(workout.start_dt)} &middot; Status:{" "}
-                  {workout.status}
+                  {exercise.description}
                 </p>
               </article>
             ))}
@@ -146,7 +140,7 @@ const Explore = () => {
           }}
         >
           <h3 style={{ margin: 0 }}>Featured Templates</h3>
-          <Link to="/templates" style={{ fontSize: "0.9rem" }}>
+          <Link to="/templates?scope=public" style={{ fontSize: "0.9rem" }}>
             View all templates
           </Link>
         </header>
@@ -200,7 +194,7 @@ const Explore = () => {
           }}
         >
           <h3 style={{ margin: 0 }}>Featured Plans</h3>
-          <Link to="/plans" style={{ fontSize: "0.9rem" }}>
+          <Link to="/plans?scope=public" style={{ fontSize: "0.9rem" }}>
             View all plans
           </Link>
         </header>

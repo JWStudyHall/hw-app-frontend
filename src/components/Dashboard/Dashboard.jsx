@@ -7,9 +7,6 @@ const Dashboard = () => {
 
   return (
     <main style={{ padding: "20px" }}>
-      <h1>Welcome, {user.username}</h1>
-      <p>This is the dashboard page</p>
-
       <section style={{ marginTop: "20px" }}>
         <Outlet />
       </section>

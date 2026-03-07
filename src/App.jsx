@@ -22,9 +22,13 @@ import ExerciseLibrary from "./components/ExerciseLibrary/ExerciseLibrary.jsx";
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Profile from "./components/Calendar/Profile.jsx";
 import Explore from "./components/Explore/Explore.jsx";
+import MyWorkouts from "./components/Workouts/MyWorkouts.jsx";
 
 const App = () => {
-  const { user } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
+  if (loading) {
+    return <div>Loading...</div>; // or a proper loading component
+  }
   return (
     <>
       <NavBar />
@@ -64,10 +68,10 @@ const App = () => {
 
               {/* Workouts & Calendar */}
               <Route path="calendar" element={<Calendar />} />
-              <Route path="workouts" element={<WorkoutList />} />
+              <Route path="workouts" element={<MyWorkouts />} />
               <Route path="workouts/new" element={<WorkoutForm />} />
               <Route path="workouts/:workoutId" element={<WorkoutDetail />} />
-
+              <Route path="workouts/:workoutId/edit" element={<WorkoutForm />} />
               {/* Explore */}
               <Route path="explore" element={<Explore />} />
             </>

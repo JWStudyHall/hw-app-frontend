@@ -529,7 +529,7 @@ const ExerciseCard = ({
 
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "16px" }}>
         <InputField
-          label="Distance (meters)"
+          label="Distance"
           type="number"
           value={item.distance}
           onChange={(e) => onChange(index, "distance", e.target.value)}

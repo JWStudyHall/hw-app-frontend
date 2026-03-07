@@ -1,8 +1,10 @@
 import api from "./apiConfig.js";
 
-export const getTemplates = async () => {
+export const getTemplates = async (scope = "all") => {
   try {
-    const resp = await api.get("api/workout-templates/");
+    const resp = await api.get("api/workout-templates/", {
+      params: { scope }
+    });
     return resp.data;
   } catch (error) {
     throw error;

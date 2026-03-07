@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router";
+import { useState, useEffect, useContext } from "react";
+import { useParams, Link, useNavigate } from "react-router";
 import { getWorkout } from "../../services/workoutService.js";
+import { UserContext } from "../../contexts/UserContext.jsx";
+import { deleteWorkout } from "../../services/workoutService.js";
 
 const WorkoutDetail = () => {
   const { workoutId } = useParams();
   const [workout, setWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWorkout = async () => {
@@ -20,6 +24,15 @@ const WorkoutDetail = () => {
     };
     fetchWorkout();
   }, [workoutId]);
+
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      "Delete this workout? This cannot be undone.",
+    );
+    if (!confirmed) return;
+    await deleteWorkout(workoutId);
+    navigate("/workouts");
+  };
 
   if (loading) return <p>Loading...</p>;
   if (!workout) return <p>Workout not found.</p>;
@@ -82,6 +95,14 @@ const WorkoutDetail = () => {
       </section>
 
       <footer style={{ marginTop: "30px" }}>
+        {user?.id === workout.user && (
+          <>
+            <Link to={`/workouts/${workoutId}/edit`}>
+              <button>Edit Workout</button>
+            </Link>
+            <button onClick={handleDelete}>Delete Workout</button>
+          </>
+        )}
         <Link to="/workouts">
           <button>Back to Workouts</button>
         </Link>
