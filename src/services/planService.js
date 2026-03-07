@@ -1,8 +1,10 @@
 import api from "./apiConfig.js";
 
-export const getPlans = async () => {
+export const getPlans = async (scope = "all") => {
   try {
-    const resp = await api.get("/api/workout-plans/");
+    const resp = await api.get("/api/workout-plans/", {
+      params: { scope }
+    });
     return resp.data;
   } catch (error) {
     throw error;
@@ -69,6 +71,15 @@ export const updatePlanTemplateLink = async (linkId, linkData) => {
 export const removeTemplateFromPlan = async (linkId) => {
   try {
     const resp = await api.delete(`/api/workout-template-plans/${linkId}/`);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const generateWorkoutsFromPlan = async (planId) => {
+  try {
+    const resp = await api.post(`/api/workout-plans/${planId}/generate/`);
     return resp.data;
   } catch (error) {
     throw error;

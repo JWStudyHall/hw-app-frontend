@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { getPlan, deletePlan } from "../../services/planService";
+import { UserContext } from "../../contexts/UserContext.jsx";
+import { generateWorkoutsFromPlan } from "../../services/planService.js";
 
 const PlanDetail = () => {
   const [plan, setPlan] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
-
+  const [generating, setGenerating] = useState(false);
+  const { user } = useContext(UserContext);
   let { planId } = useParams();
   let navigate = useNavigate();
 
@@ -28,6 +31,18 @@ const PlanDetail = () => {
 
     fetchPlan();
   }, [planId]);
+
+  const handleGenerateWorkouts = async () => {
+    setGenerating(true);
+    setError("");
+    try {
+      await generateWorkoutsFromPlan(planId);
+    } catch (err) {
+      setError("Could not generate workouts. Please try again.");
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
@@ -121,12 +136,19 @@ const PlanDetail = () => {
       {error ? <p style={{ color: "crimson" }}>{error}</p> : null}
 
       <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
-        <Link to={`/plans/${plan.id}/edit`}>
-          <button>Edit Plan</button>
-        </Link>
-        <button onClick={handleDelete} disabled={deleting}>
-          {deleting ? "Deleting..." : "Delete Plan"}
+        <button onClick={handleGenerateWorkouts} disabled={generating}>
+          {generating ? "Generating..." : "Generate Workouts"}
         </button>
+        {user?.id === plan.user ? (
+          <>
+          <Link to={`/plans/${plan.id}/edit`}>
+            <button>Edit Plan</button>
+          </Link>
+          <button onClick={handleDelete} disabled={deleting}>
+            {deleting ? "Deleting..." : "Delete Plan"}
+          </button>
+          </>
+        ) : null}
       </div>
     </div>
   );
