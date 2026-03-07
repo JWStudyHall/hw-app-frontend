@@ -9,7 +9,7 @@ import Landing from "./components/Landing/Landing.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import WorkoutList from "./components/Workouts/WorkoutList.jsx";
 import WorkoutDetail from "./components/Workouts/WorkoutDetail.jsx";
-import WorkoutForm from "./components/Workouts/WorkoutForm.jsx";
+import WorkoutBuilder from "./components/Workouts/WorkoutBuilder.jsx";
 import TemplateBuilder from "./components/Templates/TemplateBuilder.jsx";
 import TemplateDetail from "./components/Templates/TemplateDetail.jsx";
 import TemplateList from "./components/Templates/TemplateList.jsx";
@@ -67,9 +67,9 @@ const App = () => {
 
               {/* Workouts & Calendar */}
               <Route path="workouts" element={<MyWorkouts />} />
-              <Route path="workouts/new" element={<WorkoutForm />} />
+              <Route path="workouts/new" element={<WorkoutBuilder />} />
               <Route path="workouts/:workoutId" element={<WorkoutDetail />} />
-              <Route path="workouts/:workoutId/edit" element={<WorkoutForm />} />
+              <Route path="workouts/:workoutId/edit" element={<WorkoutBuilder />} />
               {/* Explore */}
               <Route path="explore" element={<Explore />} />
             </>

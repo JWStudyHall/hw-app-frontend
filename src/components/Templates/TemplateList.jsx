@@ -1,4 +1,4 @@
-import CardList from "../CardList/CardList.jsx";
+import CardList from "../shared/CardList/CardList.jsx";
 import { useState, useEffect, useContext  } from "react";
 import { useSearchParams } from "react-router";
 import { getTemplates, deleteTemplate } from "../../services/templateService.js";

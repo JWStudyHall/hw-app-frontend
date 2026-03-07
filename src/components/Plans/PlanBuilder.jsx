@@ -47,7 +47,7 @@ const PlanBuilder = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [selectedTemplateIds, setSelectedTemplateIds] = useState([]);
   const [linkTimes, setLinkTimes] = useState({});
-
+  const [cycles, setCycles] = useState(1);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -226,6 +226,19 @@ const PlanBuilder = () => {
               step="1"
               value={interval}
               onChange={(e) => setInterval(e.target.value)}
+              required
+              style={{ display: "block", width: "100%", marginTop: "0.25rem" }}
+            />
+          </label>
+
+          <label>
+            Cycles (number of times to repeat the plan)
+            <input
+              type="number"
+              min="1"
+              step="1"
+              value={cycles}
+              onChange={(e) => setCycles(e.target.value)}
               required
               style={{ display: "block", width: "100%", marginTop: "0.25rem" }}
             />
