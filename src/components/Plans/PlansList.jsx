@@ -1,73 +1,109 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router";
-import { getPlans } from "../../services/planService.js";
+import CardList from "../shared/CardList/CardList.jsx";
+import { useState, useEffect, useContext } from "react";
+import { useSearchParams } from "react-router";
+import { getPlans, deletePlan, generateWorkoutsFromPlan } from "../../services/planService";
+import { UserContext } from "../../contexts/UserContext";
 
 const PlansList = () => {
+  const { user } = useContext(UserContext);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const scope = searchParams.get("scope") || "user";
 
   useEffect(() => {
     const fetchPlans = async () => {
       setLoading(true);
       setError("");
       try {
-        const plansData = await getPlans();
-        const publicPlans = Array.isArray(plansData)
-          ? plansData.filter((plan) => plan.is_public)
-          : [];
-        setPlans(publicPlans);
+        const plansData = await getPlans(scope);
+        setPlans(plansData);
       } catch (error) {
-        setError("Could not load public plans.");
+        setError("Could not load plans.");
       } finally {
         setLoading(false);
       }
     };
-
     fetchPlans();
-  }, []);
-  if (loading) return <h3>Loading workout plans...</h3>;
-  if (error) return <p style={{ color: "crimson" }}>{error}</p>;
+  }, [scope]);
 
-  if (!plans.length)
-    return (
-      <h1 style={{ textAlign: "center" }}>
-        Let's get moving! Create your first workout plan.
-      </h1>
-    );
+  const handleAction = async (action, item) => {
+    switch (action) {
+      case "delete":
+        try {
+          await deletePlan(item.id);
+          setPlans(plans.filter(p => p.id !== item.id));
+        } catch (err) {
+          setError("Could not delete plan.");
+        }
+        break;
+      case "generate":
+        try {
+          await generateWorkoutsFromPlan(item.id);
+          // Optionally show success message
+        } catch (err) {
+          setError("Could not generate workouts.");
+        }
+        break;
+    }
+  };
 
   return (
-    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "1rem" }}>
-      <h1>Public Workout Plans</h1>
-      <Link to="/plans/new">+ New Plan</Link>
-      <p>Browse plans created by the community.</p>
-      <div style={{ display: "grid", gap: "0.75rem" }}>
-        {plans.map((plan) => (
-          <Link
-            key={plan.id}
-            to={`/plans/${plan.id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <article
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                padding: "0.9rem",
-              }}
-            >
-              <h3 style={{ margin: "0 0 0.25rem 0" }}>{plan.title}</h3>
-              <p style={{ margin: "0 0 0.35rem 0" }}>
-                {plan.user?.username ? `By ${plan.user.username}` : "Public plan"}
-              </p>
-              <p style={{ margin: 0 }}>
-                {plan.template_links?.length || 0} template
-                {plan.template_links?.length === 1 ? "" : "s"}
-              </p>
-            </article>
-          </Link>
-        ))}
-      </div>
-    </div>
+    <CardList
+      items={plans}
+      itemType="plan"
+      cardFields={{
+        title: { render: (item) => item.title },
+        subtitle: {
+          render: (item) => item.user?.username 
+            ? `By ${item.user.username}` 
+            : "Public plan"
+        },
+        metadata: {
+          render: (item) => `${item.template_links?.length || 0} template${item.template_links?.length === 1 ? '' : 's'}`
+        }
+      }}
+      actions={{
+        view: {
+          label: "View Details",
+          path: (item) => `/plans/${item.id}`,
+          alwaysVisible: true
+        },
+        edit: {
+          label: "Edit",
+          path: (item) => `/plans/${item.id}/edit`,
+          requiresOwnership: true
+        },
+        delete: {
+          label: "Delete",
+          action: "delete",
+          requiresOwnership: true,
+          requiresConfirmation: true,
+          confirmationMessage: "Delete this plan? This cannot be undone."
+        },
+        generateWorkouts: {
+          label: "Generate Workouts",
+          action: "generate",
+          condition: (item) => item.template_links?.length > 0
+        }
+      }}
+      onAction={handleAction}
+      detailPath={(item) => `/plans/${item.id}`}
+      createPath="/plans/new"
+      createLabel="+ New Plan"
+      scope={scope}
+      onScopeChange={(newScope) => setSearchParams({ scope: newScope })}
+      title="Workout Plans"
+      loading={loading}
+      error={error}
+      user={user}
+      emptyState={{
+        title: "Let's get moving!",
+        message: "Create your first workout plan.",
+        action: { label: "Create Plan", path: "/plans/new" }
+      }}
+    />
   );
 };
 

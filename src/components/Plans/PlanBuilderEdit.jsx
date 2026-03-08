@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import { getPlan } from "../../services/planService.js";
-import PlanBuilder from "./PlanBuilderEdit.jsx";
+import PlanBuilder from "./PlanBuilder.jsx";
 
 const PlanBuilderEdit = () => {
   const { planId } = useParams();

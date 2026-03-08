@@ -1,52 +1,90 @@
-import { useState, useEffect } from "react";
-import { getTemplates } from "../../services/templateService";
-import { Link } from "react-router";
+import CardList from "../shared/CardList/CardList.jsx";
+import { useState, useEffect, useContext  } from "react";
+import { useSearchParams } from "react-router";
+import { getTemplates, deleteTemplate } from "../../services/templateService.js";
+import { UserContext } from "../../contexts/UserContext.jsx";
 
 const TemplateList = () => {
+  const { user } = useContext(UserContext);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
-  const fetchTemplates = async () => {
-    try {
+  const scope = searchParams.get("scope") || "user";
+
+  useEffect(() => {
+    const fetchTemplates = async () => {
       setLoading(true);
-      const templateList = await getTemplates();
-      setTemplates(templateList);
-    } catch (e) {
-      console.log("Error fetching templates: ", e);
-    } finally {
-      setLoading(false);
+      try {
+        const templateList = await getTemplates(scope);
+        setTemplates(templateList);
+      } catch (e) {
+        console.log("Error fetching templates: ", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTemplates();
+  }, [scope]);
+
+  const handleAction = async (action, item) => {
+    if (action === "delete") {
+      const confirmed = window.confirm(
+        "Delete this template? This cannot be undone."
+      );
+      if (!confirmed) return;
+      try {
+        await deleteTemplate(item.id);
+        setTemplates(templates.filter(t => t.id !== item.id));
+      } catch (err) {
+        console.error("Failed to delete template:", err);
+      }
     }
   };
 
-  useEffect(() => {
-    fetchTemplates();
-  }, []);
-
-  if (loading) return <h3>Loading...</h3>;
-
   return (
-    <div>
-      {templates && templates.length > 0 ? (
-        <>
-          <Link to="/templates/new">Create Template</Link>
-          <ul>
-            {templates.map((template) => (
-              <li key={template.id}>
-                <div>
-                  <h3>
-                    <Link to={`/templates/${template.id}`}>
-                      {template.title}
-                    </Link>
-                  </h3>
-                  <p>{template.description}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : (
-        <h3>No templates found</h3>
-      )}
-    </div>
+    <CardList
+      items={templates}
+      itemType="template"
+      cardFields={{
+        title: { render: (item) => item.title },
+        description: { 
+          render: (item) => item.description,
+          optional: true 
+        }
+      }}
+      actions={{
+        view: {
+          label: "View details",
+          path: (item) => `/templates/${item.id}`,
+          alwaysVisible: true
+        },
+        edit: {
+          label: "Edit",
+          path: (item) => `/templates/${item.id}/edit`,
+          requiresOwnership: true
+        },
+        delete: {
+          label: "Delete",
+          action: "delete",
+          requiresOwnership: true,
+          requiresConfirmation: true
+        }
+      }}
+      onAction={handleAction}
+      createPath="/templates/new"
+      createLabel="+ Create Template"
+      onScopeChange={(newScope) => setSearchParams({ scope: newScope })}
+      scope={scope}
+      title="Templates"
+      loading={loading}
+      user={user}
+      layout="grid"
+      emptyState={{
+        title: "No templates found",
+        message: "You haven't created any templates yet.",
+        action: { label: "Create your first template", path: "/templates/new" }
+      }}
+    />
   );
 };
 
