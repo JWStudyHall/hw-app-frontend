@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import "./Landing.css";
 
 const Landing = () => {
@@ -17,8 +18,15 @@ const Landing = () => {
         </p>
 
         <div className="cta-group">
-          <button className="btn btn-primary">Get Started</button>
-          <button className="btn btn-secondary">Sign In</button>
+          {/* Link to Sign Up */}
+          <Link to="/sign-up" className="btn btn-primary">
+            Get Started
+          </Link>
+
+          {/* Link to Sign In */}
+          <Link to="/sign-in" className="btn btn-secondary">
+            Sign In
+          </Link>
         </div>
       </main>
     </div>

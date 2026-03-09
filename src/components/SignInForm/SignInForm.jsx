@@ -22,11 +22,9 @@ const SignInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("I'm in submit")
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
-      console.log("hiii");
-      navigate("/");
+      navigate("/explore");
     } catch (err) {
       setMessage(err.message);
     }

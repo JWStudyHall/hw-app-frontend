@@ -101,3 +101,26 @@
     flex-direction: column;
   }
 }
+
+/* entrance animation */
+.landing-content {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cta-group a {
+  text-decoration: none;
+  display: inline-flex; /* Keeps alignment centered */
+  align-items: center;
+  justify-content: center;
+}
