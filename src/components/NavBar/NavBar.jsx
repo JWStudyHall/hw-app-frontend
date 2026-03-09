@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import "./NavBar.css";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
@@ -12,14 +13,20 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isOpen ? "nav-open" : ""}`}>
       <div className="nav-container">
+        <button className="nav-toggle" onClick={() => setIsOpen(!isOpen)}>
+          <span className="hamburger-icon">☰</span>
+        </button>
         <NavLink to="/" className="nav-logo">
           Health<span>Wealth</span>
         </NavLink>
 
         {user ? (
           <ul className="nav-list">
+            <span className="user-greeting">
+              Hi, <strong>{user.username}</strong>
+            </span>
             <li>
               <NavLink to="/exercises" className="nav-link">
                 Exercises
@@ -37,9 +44,6 @@ const NavBar = () => {
             </li>
 
             <div className="user-section">
-              <span className="user-greeting">
-                Hi, <strong>{user.username}</strong>
-              </span>
               <NavLink to="/profile" className="nav-link">
                 Profile
               </NavLink>
