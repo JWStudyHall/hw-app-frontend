@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { getExercises } from "../../services/exerciseService";
+import "./ExerciseLibrary.css";
 
 const ExerciseLibrary = () => {
   const [exercises, setExercises] = useState([]);
@@ -29,19 +30,33 @@ const ExerciseLibrary = () => {
   if (error) return <p style={{ color: "crimson" }}>{error}</p>;
 
   return (
-    <div>
-      <h2>Exercise Library</h2>
-      {exercises.length === 0 ? (
-        <p>No exercises yet.</p>
-      ) : (
-        <ul>
-          {exercises.map((exercise) => (
-            <li key={exercise.id}>
-              <Link to={`/exercises/${exercise.id}`}>{exercise.name}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="exercise-lib">
+      <div>
+        <h2>Exercise Library</h2>
+        {exercises.length > 0 && (
+          <p className="exercise-lib-subtitle">
+            Browse movements to plug into your plans and workouts.
+          </p>
+        )}
+
+        {exercises.length > 0 && (
+          <p className="exercise-lib-count">
+            {exercises.length} exercise{exercises.length === 1 ? "" : "s"}
+          </p>
+        )}
+
+        {exercises.length === 0 ? (
+          <p className="exercise-lib-empty">No exercises yet.</p>
+        ) : (
+          <ul>
+            {exercises.map((exercise) => (
+              <li key={exercise.id}>
+                <Link to={`/exercises/${exercise.id}`}>{exercise.name}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
