@@ -14,6 +14,12 @@
   font-family: "Inter", sans-serif;
 }
 
+.nav-link.active {
+  color: #006d77;
+  font-weight: 600;
+  border-bottom: 2px solid #006d77; 
+}
+
 .nav-container {
   width: 100%;
   max-width: 1200px;
@@ -106,4 +112,75 @@
 
 .btn-signup-nav:hover {
   background: #006d77;
+}
+
+/* Hamburger toggle: hidden on desktop by default */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-right: 12px;
+}
+
+.hamburger-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  .navbar {
+    height: 64px; /* compact bar when closed */
+  }
+
+  .nav-container {
+    width: 100%;
+    align-items: center;
+  }
+
+  /* Show hamburger on mobile */
+  .nav-toggle {
+    display: block;
+  }
+
+  /* Hide full menu sections when closed */
+  .nav-list,
+  .user-section,
+  .auth-links {
+    display: none;
+  }
+
+  /* When nav is open, expand and stack content */
+  .navbar.nav-open {
+    height: auto;
+    align-items: flex-start;
+  }
+
+  .navbar.nav-open .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  .navbar.nav-open .nav-list,
+  .navbar.nav-open .user-section,
+  .navbar.nav-open .auth-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .navbar.nav-open .user-section {
+    margin-left: 0;
+  }
+
+  .navbar.nav-open .auth-links {
+    margin-left: 0;
+  }
 }
