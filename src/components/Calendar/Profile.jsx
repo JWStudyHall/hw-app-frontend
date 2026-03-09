@@ -6,6 +6,7 @@ import {
   getWeightLogs,
   createWeightLog,
 } from "../../services/profileServices.js";
+import "./Profile.css";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -70,98 +71,165 @@ const Profile = () => {
     : "Not set";
 
   return (
-    <div>
-      <h1>Profile</h1>
-
-      <h2>{user?.username}</h2>
-
-      <div>
-        <h3>Height</h3>
-
-        {height && !editingHeight && (
-          <div>
-            <p>{formattedHeight}</p>
-            <button onClick={() => setEditingHeight(true)}>Edit</button>
-          </div>
-        )}
-
-        {(!height || editingHeight) && (
-          <form onSubmit={handleHeightSubmit}>
-            <label>Feet</label>
-            <input
-              type="number"
-              min="0"
-              value={feet}
-              onChange={(e) => setFeet(e.target.value)}
-            />
-
-            <label>Inches</label>
-            <input
-              type="number"
-              min="0"
-              max="11"
-              value={inches}
-              onChange={(e) => setInches(e.target.value)}
-            />
-
-            <button type="submit">Save Height</button>
-          </form>
-        )}
-      </div>
-
-      <div>
-        <h3>Current Weight</h3>
-
-        {latestWeight ? (
-          <p>
-            {latestWeight.weight} lbs (as of {latestWeight.date})
-          </p>
-        ) : (
-          <p>Log your weight!</p>
-        )}
-      </div>
-
-      <form onSubmit={handleWeightSubmit}>
-        <h3>Log Weight</h3>
-
-        <label>Weight</label>
-        <input
-          type="number"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-        />
-
-        <label>As of Date</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-
-        <button type="submit" disabled={!weight || !date}>
-          Save Weight
-        </button>
-      </form>
-
-      {weightLogs.length > 1 && (
-        <button onClick={() => setShowHistory(!showHistory)}>
-          {showHistory ? "Hide History" : "Show Weight History"}
-        </button>
-      )}
-
-      {showHistory && (
-        <div>
-          <h3>Weight History</h3>
-
-          {weightLogs.map((entry) => (
-            <div key={entry.id}>
-              <p>
-                {entry.weight} lbs — {entry.date}
-              </p>
+    <div className="profile-page">
+      <div className="profile-card">
+        {/* LEFT COLUMN: user + height */}
+        <div className="profile-left">
+          <header className="profile-header">
+            <div className="profile-avatar">
+              {user?.username?.[0]?.toUpperCase()}
             </div>
-          ))}
+            <div className="profile-user-meta">
+              <div className="profile-username">{user?.username}</div>
+              <div className="profile-subtitle">Your training profile</div>
+            </div>
+          </header>
+
+          <section className="profile-section">
+            <div className="profile-section-title">Height</div>
+
+            {height && !editingHeight && (
+              <div className="height-display">
+                <div>
+                  <div className="height-value">{formattedHeight}</div>
+                  <div className="height-label">Current height</div>
+                </div>
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={() => setEditingHeight(true)}
+                >
+                  Edit
+                </button>
+              </div>
+            )}
+
+            {(!height || editingHeight) && (
+              <form onSubmit={handleHeightSubmit}>
+                <div className="profile-form-grid">
+                  <div className="profile-form-group">
+                    <label className="profile-label">Feet</label>
+                    <input
+                      type="number"
+                      min="0"
+                      className="profile-input"
+                      value={feet}
+                      onChange={(e) => setFeet(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="profile-form-group">
+                    <label className="profile-label">Inches</label>
+                    <input
+                      type="number"
+                      min="0"
+                      max="11"
+                      className="profile-input"
+                      value={inches}
+                      onChange={(e) => setInches(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="profile-actions">
+                  {height && (
+                    <button
+                      type="button"
+                      className="btn-secondary"
+                      onClick={() => setEditingHeight(false)}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                  <button type="submit" className="btn-primary">
+                    Save height
+                  </button>
+                </div>
+              </form>
+            )}
+          </section>
         </div>
-      )}
+
+        {/* RIGHT COLUMN: weight + history */}
+        <div className="profile-right">
+          <section className="current-weight-card">
+            <div className="profile-section-title">Current weight</div>
+
+            {latestWeight ? (
+              <>
+                <div className="current-weight-main">
+                  <span className="value">{latestWeight.weight}</span>
+                  <span className="unit">lbs</span>
+                </div>
+                <div className="current-weight-sub">
+                  As of {latestWeight.date}
+                </div>
+              </>
+            ) : (
+              <div className="profile-empty">No weight logged yet.</div>
+            )}
+          </section>
+
+          <section className="weight-history-card">
+            <div className="profile-section-title">Log weight</div>
+
+            <form onSubmit={handleWeightSubmit}>
+              <div className="profile-form-grid">
+                <div className="profile-form-group">
+                  <label className="profile-label">Weight (lbs)</label>
+                  <input
+                    type="number"
+                    className="profile-input"
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
+                  />
+                </div>
+
+                <div className="profile-form-group">
+                  <label className="profile-label">Date</label>
+                  <input
+                    type="date"
+                    className="profile-input"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="profile-actions">
+                <button
+                  type="submit"
+                  className="btn-primary"
+                  disabled={!weight || !date}
+                >
+                  Save weight
+                </button>
+              </div>
+            </form>
+
+            {weightLogs.length > 0 && (
+              <>
+                <div
+                  className="profile-section-title"
+                  style={{ marginTop: 16 }}
+                >
+                  History
+                </div>
+                <div className="weight-history-list">
+                  {weightLogs.map((entry) => (
+                    <div key={entry.id} className="weight-history-item">
+                      <span>{entry.weight} lbs</span>
+                      <span className="weight-history-date">
+                        {entry.date}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </section>
+        </div>
+      </div>
     </div>
   );
 };
