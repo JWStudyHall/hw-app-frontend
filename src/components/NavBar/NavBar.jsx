@@ -28,23 +28,24 @@ const NavBar = () => {
               Hi, <strong>{user.username}</strong>
             </span>
             <li>
-              <NavLink to="/exercises" className="nav-link">
+              <NavLink to="/exercises" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+              >
                 Exercises
               </NavLink>
             </li>
             <li>
-              <NavLink to="/workouts" className="nav-link">
+              <NavLink to="/workouts" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Workouts
               </NavLink>
             </li>
             <li>
-              <NavLink to="/explore" className="nav-link">
+              <NavLink to="/explore" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Explore
               </NavLink>
             </li>
 
             <div className="user-section">
-              <NavLink to="/profile" className="nav-link">
+              <NavLink to="/profile" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Profile
               </NavLink>
               <button onClick={handleSignOut} className="btn-signout">
@@ -59,12 +60,12 @@ const NavBar = () => {
             </NavLink>
             <NavLink
               to="/sign-in"
-              className="nav-link"
+              className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
               style={{ alignSelf: "center" }}
             >
               Sign In
             </NavLink>
-            <NavLink to="/sign-up" className="nav-link btn-signup-nav">
+            <NavLink to="/sign-up" className={({ isActive }) => isActive ? "nav-link active" : "nav-link btn-signup-nav"}>
               Sign Up
             </NavLink>
           </div>
