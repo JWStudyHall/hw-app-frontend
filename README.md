@@ -7,7 +7,9 @@ The **Health & Wellness (HW) App Frontend** is a React application that allows u
 It connects to a **Django REST API backend** and uses **JWT authentication** to manage secure user sessions.
 
 ---
-## Deploy app
+## Deploy app 
+
+Link [Health is Wealth App]([https://docs.github.com/](https://healthwealthapp.netlify.app/))
 
 ---
 ## Tech Stack
@@ -39,6 +41,8 @@ src
 ├── components
 │   │
 │   ├── Calendar
+        ├── Calendar.jsx
+        ├── Profile.css
 │   │   └── Profile.jsx
 │   │
 │   ├── ExerciseLibrary
