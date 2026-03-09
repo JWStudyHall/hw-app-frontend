@@ -40,6 +40,17 @@ const ExerciseDetail = () => {
       <p>Type: {exercise.exercise_type || "N/A"}</p>
       <p>Equipment: {exercise.equipment || "N/A"}</p>
       <p>{exercise.instructions || "No instructions provided."}</p>
+      {exercise.video_url ? (
+        <iframe
+          width="560"
+          height="315"
+          src={exercise.video_url}
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      ) : (
+        <p>No video</p>
+      )}
     </div>
   );
 };
