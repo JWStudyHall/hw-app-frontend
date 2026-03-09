@@ -289,7 +289,7 @@ const WorkoutForm = ({
               </>
             ) : (
               <>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                <div className="date-grid">
                   <InputField
                     label="Start Date & Time"
                     name="start_dt"
