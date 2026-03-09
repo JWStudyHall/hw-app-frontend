@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ExerciseFormFields, INITIAL_ITEM, InputField, SelectField, TextAreaField } from "../ExerciseFormFields";
-import { prepareItemData, toDateTimeLocal } from "../../../utils/formHelpers.js";
+import { prepareItemData, toDateTimeLocal, toIsoStringOrNull } from "../../../utils/formHelpers.js";
 
 /**
  * Unified WorkoutForm component that works for both Templates and Workouts
@@ -181,10 +181,19 @@ const WorkoutForm = ({
         .filter((item) => item.exercise !== "")
         .map((item, index) => prepareItemData(item, index));
 
-      const submitData = {
-        ...formData,
-        items: itemsData,
-      };
+        const baseData = {
+          ...formData,
+          items: itemsData,
+        };
+    
+        const submitData =
+          mode === "workout"
+            ? {
+                ...baseData,
+                start_dt: toIsoStringOrNull(formData.start_dt),
+                end_dt: toIsoStringOrNull(formData.end_dt),
+              }
+            : baseData;
 
       await onSubmit(submitData, entityId);
     } catch (err) {

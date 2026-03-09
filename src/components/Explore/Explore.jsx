@@ -88,7 +88,7 @@ const Explore = () => {
       <h2>Explore</h2>
       <p>Jump back into your training or discover new ideas.</p>
 
-      {/* Recent Workouts */}
+      {/* Featured Exercises */}
       <section style={{ marginTop: "24px" }}>
         <header
           style={{
@@ -98,7 +98,7 @@ const Explore = () => {
             marginBottom: "8px",
           }}
         >
-          <h3 style={{ margin: 0 }}>Recent Exercises</h3>
+          <h3 style={{ margin: 0 }}>Featured Exercises</h3>
           <Link to="/exercises" style={{ fontSize: "0.9rem" }}>
             View all exercises
           </Link>
