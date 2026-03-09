@@ -2,7 +2,7 @@
 
 ## About
 
-The **Health & Wellness (HW) App Frontend** is a React application that allows users to track fitness progress, browse exercises, and interact with workout plans.
+The **Health is Wealth  (HW) App Frontend** is a React application that allows users to track fitness progress, browse exercises, and interact with workout plans.
 
 It connects to a **Django REST API backend** and uses **JWT authentication** to manage secure user sessions.
 
