@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { getExerciseById } from "../../services/exerciseService";
+import "./ExerciseDetail.css";
 
 const ExerciseDetail = () => {
   const { exerciseId } = useParams();
@@ -31,26 +32,42 @@ const ExerciseDetail = () => {
   if (!exercise) return <p>Exercise not found.</p>;
 
   return (
-    <div>
-      <p>
-        <Link to="/exercises">Back to Exercise Library</Link>
-      </p>
+    <div className="exercise-page">
+      <Link to="/exercises" className="back-btn">
+        ← Back to Exercise Library
+      </Link>
 
-      <h2>{exercise.name}</h2>
-      <p>Type: {exercise.exercise_type || "N/A"}</p>
-      <p>Equipment: {exercise.equipment || "N/A"}</p>
-      <p>{exercise.instructions || "No instructions provided."}</p>
-      {exercise.video_url ? (
-        <iframe
-          width="560"
-          height="315"
-          src={exercise.video_url}
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      ) : (
-        <p>No video</p>
-      )}
+      <div className="exercise-header">
+        <h1>{exercise.name}</h1>
+
+        <div className="exercise-tags">
+          <span className="tag">{exercise.exercise_type || "N/A"}</span>
+          <span className="tag">{exercise.equipment || "Bodyweight"}</span>
+        </div>
+      </div>
+
+      <div className="video-card">
+        {exercise.video_url ? (
+          <iframe
+            src={exercise.video_url}
+            title={exercise.name}
+            allowFullScreen
+          />
+        ) : (
+          <p>No video available</p>
+        )}
+      </div>
+
+      <div className="details-card">
+        <h3>Exercise Details</h3>
+        <p><strong>Equipment:</strong> {exercise.equipment || "None"}</p>
+        <p><strong>Type:</strong> {exercise.exercise_type || "N/A"}</p>
+      </div>
+
+      <div className="instructions-card">
+        <h3>Instructions</h3>
+        <p>{exercise.instructions || "No instructions provided."}</p>
+      </div>
     </div>
   );
 };
