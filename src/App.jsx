@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar/NavBar.jsx";
 import SignUpForm from "./components/SignUpForm/SignUpForm.jsx";
 import SignInForm from "./components/SignInForm/SignInForm.jsx";
 import Landing from "./components/Landing/Landing.jsx";
-import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import AppLayout from "./components/shared/AppLayout/AppLayout.jsx";
 import WorkoutList from "./components/Workouts/WorkoutList.jsx";
 import WorkoutDetail from "./components/Workouts/WorkoutDetail.jsx";
 import WorkoutBuilder from "./components/Workouts/WorkoutBuilder.jsx";
@@ -36,7 +36,7 @@ const App = () => {
         <Route path="/sign-in" element={<SignInForm />} />
 
         {/* Main Entry Point */}
-        <Route path="/" element={user ? <Dashboard /> : <Landing />}>
+        <Route path="/" element={user ? <AppLayout /> : <Landing />}>
           {user && (
             <>
               {/* Profile & Library */}

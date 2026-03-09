@@ -12,6 +12,24 @@ export default function Calendar() {
   const [popover, setPopover] = useState({ show: false, x: 0, y: 0, workoutId: null });
   const navigate = useNavigate();
   const calendarRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(() =>
+    window.innerWidth < 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!calendarRef.current) return;
+    const calendarApi = calendarRef.current.getApi();
+    calendarApi.changeView(isMobile ? "timeGridWeek" : "dayGridMonth");
+  }, [isMobile]);
 
   const fetchWorkouts = async (start, end) => {
     setLoading(true);
@@ -168,7 +186,7 @@ export default function Calendar() {
       <FullCalendar
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
+        initialView={isMobile ? "timeGridWeek" : "dayGridMonth"}
         events={events}
         datesSet={handleDatesSet}
         editable={true}
@@ -177,10 +195,13 @@ export default function Calendar() {
         eventResize={handleEventResize}
         selectable={true}
         headerToolbar={{
-          left: "prev,next today",
+          left: isMobile ? "prev,next" : "prev,next today",
           center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
+          right: isMobile ? "timeGridWeek,timeGridDay" : "dayGridMonth,timeGridWeek,timeGridDay",
         }}
+        contentHeight="auto"
+        expandRows={true}
+        handleWindowResize={true}
       />
 
       {/* Popover for edit/delete actions */}

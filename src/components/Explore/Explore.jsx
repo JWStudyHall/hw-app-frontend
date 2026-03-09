@@ -84,7 +84,7 @@ const Explore = () => {
   };
 
   return (
-    <main style={{ padding: "20px", maxWidth: "50vw", margin: "0 1rem" }}>
+    <div style={{ padding: "20px", maxWidth: "100vw", margin: "0 1rem" }}>
       <h2>Explore</h2>
       <p>Jump back into your training or discover new ideas.</p>
 
@@ -223,7 +223,7 @@ const Explore = () => {
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 };
 

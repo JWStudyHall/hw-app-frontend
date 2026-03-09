@@ -1,10 +1,11 @@
-import { useContext } from "react";
-import { Link } from "react-router";
+import { useContext, useState } from "react";
+import { NavLink } from "react-router";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import "./NavBar.css";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
@@ -12,37 +13,41 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isOpen ? "nav-open" : ""}`}>
       <div className="nav-container">
-        <Link to="/" className="nav-logo">
+        <button className="nav-toggle" onClick={() => setIsOpen(!isOpen)}>
+          <span className="hamburger-icon">☰</span>
+        </button>
+        <NavLink to="/" className="nav-logo">
           Health<span>Wealth</span>
-        </Link>
+        </NavLink>
 
         {user ? (
           <ul className="nav-list">
+            <span className="user-greeting">
+              Hi, <strong>{user.username}</strong>
+            </span>
             <li>
-              <Link to="/exercises" className="nav-link">
+              <NavLink to="/exercises" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+              >
                 Exercises
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/workouts" className="nav-link">
+              <NavLink to="/workouts" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Workouts
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/explore" className="nav-link">
+              <NavLink to="/explore" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Explore
-              </Link>
+              </NavLink>
             </li>
 
             <div className="user-section">
-              <span className="user-greeting">
-                Hi, <strong>{user.username}</strong>
-              </span>
-              <Link to="/profile" className="nav-link">
+              <NavLink to="/profile" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Profile
-              </Link>
+              </NavLink>
               <button onClick={handleSignOut} className="btn-signout">
                 Sign Out
               </button>
@@ -50,19 +55,19 @@ const NavBar = () => {
           </ul>
         ) : (
           <div className="auth-links">
-            <Link to="/" className="nav-link" style={{ alignSelf: "center" }}>
+            <NavLink to="/" className="nav-link" style={{ alignSelf: "center" }}>
               Home
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/sign-in"
-              className="nav-link"
+              className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
               style={{ alignSelf: "center" }}
             >
               Sign In
-            </Link>
-            <Link to="/sign-up" className="nav-link btn-signup-nav">
+            </NavLink>
+            <NavLink to="/sign-up" className={({ isActive }) => isActive ? "nav-link active" : "nav-link btn-signup-nav"}>
               Sign Up
-            </Link>
+            </NavLink>
           </div>
         )}
       </div>
