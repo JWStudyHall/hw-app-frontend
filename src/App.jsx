@@ -9,7 +9,7 @@ import Landing from "./components/Landing/Landing.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import WorkoutList from "./components/Workouts/WorkoutList.jsx";
 import WorkoutDetail from "./components/Workouts/WorkoutDetail.jsx";
-import WorkoutForm from "./components/Workouts/WorkoutForm.jsx";
+import WorkoutBuilder from "./components/Workouts/WorkoutBuilder.jsx";
 import TemplateBuilder from "./components/Templates/TemplateBuilder.jsx";
 import TemplateDetail from "./components/Templates/TemplateDetail.jsx";
 import TemplateList from "./components/Templates/TemplateList.jsx";
@@ -19,11 +19,15 @@ import PlanDetail from "./components/Plans/PlanDetail.jsx";
 import PlansList from "./components/Plans/PlansList.jsx";
 import ExerciseDetail from "./components/ExerciseLibrary/ExerciseDetail.jsx";
 import ExerciseLibrary from "./components/ExerciseLibrary/ExerciseLibrary.jsx";
-import Calendar from "./components/Calendar/Calendar.jsx";
 import Profile from "./components/Calendar/Profile.jsx";
+import Explore from "./components/Explore/Explore.jsx";
+import MyWorkouts from "./components/Workouts/MyWorkouts.jsx";
 
 const App = () => {
-  const { user } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
+  if (loading) {
+    return <div>Loading...</div>; // or a proper loading component
+  }
   return (
     <>
       <NavBar />
@@ -62,10 +66,12 @@ const App = () => {
               <Route path="plans/:planId/edit" element={<PlanBuilderEdit />} />
 
               {/* Workouts & Calendar */}
-              <Route path="calendar" element={<Calendar />} />
-              <Route path="workouts" element={<WorkoutList />} />
-              <Route path="workouts/new" element={<WorkoutForm />} />
+              <Route path="workouts" element={<MyWorkouts />} />
+              <Route path="workouts/new" element={<WorkoutBuilder />} />
               <Route path="workouts/:workoutId" element={<WorkoutDetail />} />
+              <Route path="workouts/:workoutId/edit" element={<WorkoutBuilder />} />
+              {/* Explore */}
+              <Route path="explore" element={<Explore />} />
             </>
           )}
         </Route>

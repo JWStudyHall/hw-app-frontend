@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router";
 import { UserContext } from "../../contexts/UserContext.jsx";
+import "./NavBar.css";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
@@ -11,60 +12,60 @@ const NavBar = () => {
   };
 
   return (
-    <nav style={{ padding: "1rem", borderBottom: "1px solid #ccc" }}>
-      {user ? (
-        <ul
-          style={{
-            listStyle: "none",
-            display: "flex",
-            gap: "15px",
-            alignItems: "center",
-          }}
-        >
-          <li style={{ fontWeight: "bold" }}>Hi, {user.username}</li>
+    <nav className="navbar">
+      <div className="nav-container">
+        <Link to="/" className="nav-logo">
+          Health<span>Wealth</span>
+        </Link>
 
-          <li>
-            <Link to="/exercises">Exercises</Link>
-          </li>
-          <li>
-            <Link to="/templates">Templates</Link>
-          </li>
-          <li>
-            <Link to="/plans">Plans</Link>
-          </li>
+        {user ? (
+          <ul className="nav-list">
+            <li>
+              <Link to="/exercises" className="nav-link">
+                Exercises
+              </Link>
+            </li>
+            <li>
+              <Link to="/workouts" className="nav-link">
+                Workouts
+              </Link>
+            </li>
+            <li>
+              <Link to="/explore" className="nav-link">
+                Explore
+              </Link>
+            </li>
 
-          <li>
-            <Link to="/workouts">Workouts</Link>
-          </li>
-          <li>
-            <Link to="/calendar">Calendar</Link>
-          </li>
-          <li>
-            <Link to="/explore">Explore</Link>
-          </li>
-
-          <li style={{ marginLeft: "auto" }}>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <button onClick={handleSignOut} style={{ cursor: "pointer" }}>
-              Sign Out
-            </button>
-          </li>
-        </ul>
-      ) : (
-        <ul style={{ listStyle: "none", display: "flex", gap: "15px" }}>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/sign-in">Sign In</Link>
-          </li>
-          <li>
-            <Link to="/sign-up">Sign Up</Link>
-          </li>
-        </ul>
-      )}
+            <div className="user-section">
+              <span className="user-greeting">
+                Hi, <strong>{user.username}</strong>
+              </span>
+              <Link to="/profile" className="nav-link">
+                Profile
+              </Link>
+              <button onClick={handleSignOut} className="btn-signout">
+                Sign Out
+              </button>
+            </div>
+          </ul>
+        ) : (
+          <div className="auth-links">
+            <Link to="/" className="nav-link" style={{ alignSelf: "center" }}>
+              Home
+            </Link>
+            <Link
+              to="/sign-in"
+              className="nav-link"
+              style={{ alignSelf: "center" }}
+            >
+              Sign In
+            </Link>
+            <Link to="/sign-up" className="nav-link btn-signup-nav">
+              Sign Up
+            </Link>
+          </div>
+        )}
+      </div>
     </nav>
   );
 };

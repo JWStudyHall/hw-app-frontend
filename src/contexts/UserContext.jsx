@@ -14,18 +14,25 @@ const getUserFromToken = () => {
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchUser = async () => {
-      const user = await verifyUser();
-      setUser(user);
+      setLoading(true); // Start loading
+      try {
+        const user = await verifyUser();
+        setUser(user);
+      } catch (error) {
+        setUser(null);
+      } finally {
+        setLoading(false); // Finish loading
+      }
     };
     fetchUser();
-    // console.log("This is the use effect");
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, loading }}>
       {children}
     </UserContext.Provider>
   );
