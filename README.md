@@ -148,5 +148,43 @@ Signing out removes the stored token from `localStorage`, which prevents further
 
 Once the token is removed, protected routes become inaccessible and the user is redirected to the public landing page.
 
+## Post-MVP Features
+
+Future improvements planned for the application include:
+
+- **Workout Completion Tracking**
+  - Allow users to mark workouts as completed and track completion streaks.
+
+- **Setting Goals**
+  - Allow users to defined their workout goals.
+
+- **Exercise Search and Filtering**
+  - Filter exercises by muscle group, equipment, or exercise type.
+
+- **Progress Analytics**
+  - Charts for weight trends and workout frequency over time
+
+- **Custom Workout Plans**
+  - Users can build personalized workout plans instead of only using admin-seeded plans.
+  - 
+- **Meal Tracking & Recipes**
+  - Allow users to track calories, macros and meals.
+  - Allow users to store recipes
+
+- **Workout Notes**
+  - Add notes to workouts or exercises (e.g., weights used, difficulty, comments).
+
+- **Exercise Favorites**
+  - Save frequently used exercises for quick access.
+
+- **Mobile UI Improvements**
+  - Improve layout and usability on smaller screens.
+
+- **Calendar Enhancements**
+  - Drag-and-drop workout scheduling.
+
+- **Social Features**
+  - Share workouts or progress with friends.
+
 
 
