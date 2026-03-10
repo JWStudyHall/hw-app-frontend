@@ -40,7 +40,7 @@ export const updatePlan = async (planId, planData) => {
 
 export const deletePlan = async (planId) => {
   try {
-    const resp = await api.delete(`/api/workout-plans/${planId}`);
+    const resp = await api.delete(`/api/workout-plans/${planId}/`);
     return resp.data;
   } catch (error) {
     throw error;
