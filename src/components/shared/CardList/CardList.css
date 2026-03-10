@@ -25,23 +25,81 @@
     gap: 1rem;
   }
   
-  .card-list__create-btn {
-    padding: 0.4rem 0.9rem;
-    border-radius: 999px;
-    border: 1px solid #ddd;
-    font-size: 0.9rem;
-    text-decoration: none;
-    background: #fff;
-    color: inherit;
-    display: inline-block;
-    transition: background-color 0.2s, border-color 0.2s;
-  }
-  
-  .card-list__create-btn:hover {
-    background: #f5f5f5;
-    border-color: #bbb;
-  }
-  
+  /* Card Title Links */
+  .card-list__card-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+.card-list__card-link:hover {
+  color: #2196F3;
+  text-decoration: underline;
+}
+
+.card-list__card-link:focus {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Card Action Links */
+.card-list__card-action {
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #2196F3;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.card-list__card-action:hover {
+  color: #1976D2;
+  text-decoration: underline;
+}
+
+.card-list__card-action:focus {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.card-list__card-action:active {
+  color: #1565C0;
+}
+
+/* Create Button Link */
+.card-list__create-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+  text-decoration: none;
+  background: #fff;
+  color: #2196F3;
+  display: inline-block;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  font-weight: 500;
+}
+
+.card-list__create-btn:hover {
+  background: #f0f7ff;
+  border-color: #2196F3;
+  color: #1976D2;
+}
+
+.card-list__create-btn:focus {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
+}
+
+.card-list__create-btn:active {
+  background: #e3f2fd;
+  color: #1565C0;
+}
   /* Scope Switcher */
   .card-list__scope-switcher {
     display: flex;
@@ -124,15 +182,7 @@
     font-weight: 600;
   }
   
-  .card-list__card-link {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.2s;
-  }
-  
-  .card-list__card-link:hover {
-    color: #2563eb;
-  }
+
   
   .card-list__card-subtitle,
   .card-list__card-description,
@@ -163,15 +213,7 @@
     flex-wrap: wrap;
   }
   
-  .card-list__card-action {
-    font-size: 0.85rem;
-    text-decoration: none;
-    color: #2563eb;
-    transition: color 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
+
   
   .card-list__card-action:hover {
     color: #1d4ed8;

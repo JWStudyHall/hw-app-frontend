@@ -15,6 +15,7 @@ import TemplateDetail from "./components/Templates/TemplateDetail.jsx";
 import TemplateList from "./components/Templates/TemplateList.jsx";
 import PlanBuilder from "./components/Plans/PlanBuilder.jsx";
 import PlanBuilderEdit from "./components/Plans/PlanBuilderEdit.jsx";
+import PlanFormTest from "./components/Plans/PlanFormTest.jsx";
 import PlanDetail from "./components/Plans/PlanDetail.jsx";
 import PlansList from "./components/Plans/PlansList.jsx";
 import ExerciseDetail from "./components/ExerciseLibrary/ExerciseDetail.jsx";
@@ -61,9 +62,9 @@ const App = () => {
 
               {/* Plans */}
               <Route path="plans" element={<PlansList />} />
-              <Route path="plans/new" element={<PlanBuilder />} />
+              <Route path="plans/new" element={<PlanFormTest />} />
               <Route path="plans/:planId" element={<PlanDetail />} />
-              <Route path="plans/:planId/edit" element={<PlanBuilderEdit />} />
+              <Route path="plans/:planId/edit" element={<PlanFormTest />} />
 
               {/* Workouts & Calendar */}
               <Route path="workouts" element={<MyWorkouts />} />

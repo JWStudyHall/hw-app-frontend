@@ -67,6 +67,7 @@ const PlanBuilder = () => {
           setStartDt(toDateTimeLocal(planData?.start_dt));
           setInterval(planData?.interval || 1);
           setIsPublic(Boolean(planData?.is_public));
+          setCycles(planData?.cycles || 1);
 
           const links = Array.isArray(planData?.template_links)
             ? planData.template_links
@@ -166,6 +167,7 @@ const PlanBuilder = () => {
         start_dt: startDtIso,
         interval: parsedInterval,
         is_public: isPublic,
+        cycles: cycles,
         template_links,
       };
 

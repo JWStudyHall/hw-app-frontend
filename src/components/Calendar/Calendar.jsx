@@ -5,6 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { getWorkouts, updateWorkout, deleteWorkout } from "../../services/workoutService.js";
+import "./Calendar.css";
 
 export default function Calendar() {
   const [events, setEvents] = useState([]);
@@ -197,11 +198,17 @@ export default function Calendar() {
         headerToolbar={{
           left: isMobile ? "prev,next" : "prev,next today",
           center: "title",
-          right: isMobile ? "timeGridWeek,timeGridDay" : "dayGridMonth,timeGridWeek,timeGridDay",
+          right: isMobile ? "timeGridWeek,timeGridDay createWorkout" : "dayGridMonth,timeGridWeek,timeGridDay createWorkout",
         }}
         contentHeight="auto"
         expandRows={true}
         handleWindowResize={true}
+        customButtons={{
+          createWorkout: {
+            text: "+ Workout",
+            click: () => navigate("/workouts/new"),
+          },
+        }}
       />
 
       {/* Popover for edit/delete actions */}

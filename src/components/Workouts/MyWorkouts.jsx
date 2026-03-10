@@ -24,13 +24,10 @@ const MyWorkouts = () => {
     if (loading) return <p>Loading...</p>;
 
   return (
-    <div style={{ maxWidth: "100vw", margin: "0 1rem", padding: "1rem" }}>
+    <div style={{  margin: "0 1rem", padding: "1rem" }}>
       <h1>My Workouts</h1>
       <div style={{ display: "flex", gap: "1rem" }}>
-        <Link to="/workouts/new">+ New Workout</Link>
-        <Link to="/plans?scope=user">My Plans</Link>
-        <Link to="/templates?scope=user">My Templates</Link>
-        <Link to="/exercises?scope=user">My Exercises</Link>
+        <Link to="/workouts/new" className="btn-primary">+ New Workout</Link>
       </div>
       <Calendar />
     </div>
