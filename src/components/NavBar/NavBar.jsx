@@ -76,7 +76,10 @@ const NavBar = () => {
             >
               Sign In
             </NavLink>
-            <NavLink to="/sign-up" className={({ isActive }) => isActive ? "nav-link active" : "nav-link btn-signup-nav"}>
+            <NavLink to="/sign-up" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+            style={{ alignSelf: "center" }}
+            >
+
               Sign Up
             </NavLink>
           </div>

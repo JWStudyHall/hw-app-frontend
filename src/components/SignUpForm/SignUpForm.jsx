@@ -11,6 +11,11 @@ const SignUpForm = () => {
     password: "",
     passwordConf: "",
   });
+  const [errors, setErrors] = useState({
+    username: "",
+    password: "",
+    passwordConf: ""
+  });
 
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -18,10 +23,28 @@ const SignUpForm = () => {
   // Destructure for easier use in the return
   const { username, password, passwordConf } = formData;
 
+  const handleValidation = (e) => {
+    const { name, value } = e.target;
+    setErrors({ ...errors, [name]: "" });
+    if (name === "username" && value.length < 3) {
+      setErrors((prevErrors) => ({ ...prevErrors, username: "Must be at least 3 characters long" }));
+    }
+    if (name === "password" && value.length < 8) {
+      setErrors((prevErrors) => ({ ...prevErrors, password: "Must be at least 8 characters long" }));
+      if(formData.passwordConf!==value) {
+        setErrors((prevErrors) => ({ ...prevErrors, passwordConf: "Passwords do not match" }));
+      }
+    }
+    if (name === "passwordConf" && value !== password && value.length > 0) {
+      setErrors((prevErrors) => ({ ...prevErrors, passwordConf: "Passwords do not match" }));
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setMessage("");
     setFormData({ ...formData, [name]: value });
+    handleValidation(e);
   };
 
   const handleSubmit = async (evt) => {
@@ -56,7 +79,9 @@ const SignUpForm = () => {
               name="username"
               onChange={handleChange}
               required
+              minLength={3}
             />
+            {errors.username && <p className="error-message">{errors.username}</p>}
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
@@ -67,7 +92,9 @@ const SignUpForm = () => {
               name="password"
               onChange={handleChange}
               required
+              minLength={8}
             />
+            {errors.password && <p className="error-message">{errors.password}</p>}
           </div>
           <div className="form-group">
             <label htmlFor="confirm">Confirm Password</label>
@@ -78,7 +105,9 @@ const SignUpForm = () => {
               name="passwordConf"
               onChange={handleChange}
               required
+              minLength={8}
             />
+            {errors.passwordConf && <p className="error-message">{errors.passwordConf}</p>}
           </div>
           <div className="button-group">
             <button
