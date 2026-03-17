@@ -36,9 +36,9 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
+      sessionStorage.setItem("sessionExpired", "true");
     }
     return Promise.reject(error);
   }
 );
-
 export default api;

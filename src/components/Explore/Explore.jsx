@@ -4,6 +4,7 @@ import { getExercises } from "../../services/exerciseService.js";
 import { getTemplates } from "../../services/templateService.js";
 import { getPlans } from "../../services/planService.js";
 import "./Explore.css";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const Explore = () => {
   const [featuredExercises, setFeaturedExercises] = useState([]);
@@ -17,6 +18,7 @@ const Explore = () => {
       setLoading(true);
       setError("");
       try {
+
         const [exercisesData, templatesData, plansData] = await Promise.all([
           getExercises(),
           getTemplates("public"),
@@ -50,12 +52,7 @@ const Explore = () => {
   }, []);
 
   if (loading)
-    return (
-      <div className="loading-state">
-        <h2>Explore</h2>
-        <p>Loading...</p>
-      </div>
-    );
+    return <LoadingSpinner />;
   if (error)
     return (
       <div className="error-state">
@@ -77,7 +74,7 @@ const Explore = () => {
       <section className="explore-section">
         <header className="section-header">
           <h3>Featured Exercises</h3>
-          <Link to="/exercises" className="view-all-link">
+          <Link to="/app/exercises" className="view-all-link">
             View all exercises
           </Link>
         </header>
@@ -85,7 +82,7 @@ const Explore = () => {
           {featuredExercises.map((ex) => (
             <article key={ex.id} className="explore-card">
               <h4>
-                <Link to={`/exercises/${ex.id}`}>{ex.name}</Link>
+                <Link to={`/app/exercises/${ex.id}`}>{ex.name}</Link>
               </h4>
               <p>{ex.description}</p>
               <div className="card-meta">Exercise</div>
@@ -97,7 +94,7 @@ const Explore = () => {
       <section className="explore-section">
         <header className="section-header">
           <h3>Featured Templates</h3>
-          <Link to="/templates?scope=public" className="view-all-link">
+          <Link to="/app/templates?scope=public" className="view-all-link">
             View all templates
           </Link>
         </header>
@@ -105,7 +102,7 @@ const Explore = () => {
           {featuredTemplates.map((t) => (
             <article key={t.id} className="explore-card">
               <h4>
-                <Link to={`/templates/${t.id}`}>{t.title}</Link>
+                <Link to={`/app/templates/${t.id}`}>{t.title}</Link>
               </h4>
               <p>{t.description || "No description provided."}</p>
               <div className="card-meta">
@@ -119,7 +116,7 @@ const Explore = () => {
       <section className="explore-section">
         <header className="section-header">
           <h3>Featured Plans</h3>
-          <Link to="/plans?scope=public" className="view-all-link">
+          <Link to="/app/plans?scope=public" className="view-all-link">
             View all plans
           </Link>
         </header>
@@ -127,7 +124,7 @@ const Explore = () => {
           {featuredPlans.map((p) => (
             <article key={p.id} className="explore-card">
               <h4>
-                <Link to={`/plans/${p.id}`}>{p.title}</Link>
+                <Link to={`/app/plans/${p.id}`}>{p.title}</Link>
               </h4>
               <p>Starts: {formatDateTime(p.start_dt)}</p>
               <div className="card-meta">PLAN</div>

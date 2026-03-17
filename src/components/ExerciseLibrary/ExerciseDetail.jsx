@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { getExerciseById } from "../../services/exerciseService";
 import "./ExerciseDetail.css";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const ExerciseDetail = () => {
   const { exerciseId } = useParams();
@@ -27,13 +28,13 @@ const ExerciseDetail = () => {
     fetchExercise();
   }, [exerciseId]);
 
-  if (loading) return <h3>Loading exercise...</h3>;
+  if (loading) return <LoadingSpinner />;
   if (error) return <p style={{ color: "crimson" }}>{error}</p>;
   if (!exercise) return <p>Exercise not found.</p>;
 
   return (
     <div className="exercise-page">
-      <Link to="/exercises" className="back-btn">
+      <Link to="/app/exercises" className="back-btn">
         ← Back to Exercise Library
       </Link>
 

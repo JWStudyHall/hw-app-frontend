@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { getExercises } from "../../services/exerciseService";
 import "./ExerciseLibrary.css";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const ExerciseLibrary = () => {
   const [exercises, setExercises] = useState([]);
@@ -26,7 +27,7 @@ const ExerciseLibrary = () => {
     loadExercises();
   }, []);
 
-  if (loading) return <h3>Loading exercise library...</h3>;
+  if (loading) return <LoadingSpinner />;
   if (error) return <p style={{ color: "crimson" }}>{error}</p>;
 
   return (
@@ -51,7 +52,7 @@ const ExerciseLibrary = () => {
           <ul>
             {exercises.map((exercise) => (
               <li key={exercise.id}>
-                <Link to={`/exercises/${exercise.id}`}>{exercise.name}</Link>
+                <Link to={`/app/exercises/${exercise.id}`}>{exercise.name}</Link>
               </li>
             ))}
           </ul>

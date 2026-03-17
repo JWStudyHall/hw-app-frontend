@@ -4,7 +4,6 @@ import { createWorkout, updateWorkout, getWorkout } from "../../services/workout
 import { getExercises } from "../../services/exerciseService.js";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import WorkoutForm from "../shared/WorkoutForm/WorkoutForm.jsx";
-
 /**
  * WorkoutForm wrapper component
  * Handles workout-specific logic and delegates to shared WorkoutForm component
@@ -45,11 +44,11 @@ const WorkoutBuilder = () => {
       await createWorkout(submitData);
     }
 
-    navigate("/workouts");
+    navigate("/app/workouts");
   };
 
   const handleCancel = () => {
-    navigate("/workouts");
+    navigate("/app/workouts");
   };
 
   return (

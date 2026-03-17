@@ -55,12 +55,12 @@ const TemplateList = () => {
       actions={{
         view: {
           label: "View details",
-          path: (item) => `/templates/${item.id}`,
+          path: (item) => `/app/templates/${item.id}`,
           alwaysVisible: true
         },
         edit: {
           label: "Edit",
-          path: (item) => `/templates/${item.id}/edit`,
+          path: (item) => `/app/templates/${item.id}/edit`,
           requiresOwnership: true
         },
         delete: {
@@ -71,7 +71,7 @@ const TemplateList = () => {
         }
       }}
       onAction={handleAction}
-      createPath="/templates/new"
+      createPath="/app/templates/new"
       createLabel="+ Create Template"
       onScopeChange={(newScope) => setSearchParams({ scope: newScope })}
       scope={scope}
@@ -82,7 +82,7 @@ const TemplateList = () => {
       emptyState={{
         title: "No templates found",
         message: "You haven't created any templates yet.",
-        action: { label: "Create your first template", path: "/templates/new" }
+        action: { label: "Create your first template", path: "/app/templates/new" }
       }}
     />
   );

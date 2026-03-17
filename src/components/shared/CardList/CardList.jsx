@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import "./CardList.css";
-
+import { LoadingSpinner } from "../../LoadingSpinner/LoadingSpinner.jsx";
 /**
  * CardList - A reusable component for displaying lists of items (workouts, templates, plans)
  * with configurable actions and card rendering.
@@ -246,12 +246,7 @@ const CardList = ({
 
   // Loading state
   if (loading) {
-    return (
-      <div className="card-list">
-        {title && <h2 className="card-list__title">{title}</h2>}
-        <p>Loading...</p>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   // Error state

@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { verifyUser } from "../services/authService";
+import { useNavigate } from "react-router";
 
 const UserContext = createContext();
 
@@ -15,17 +16,19 @@ const getUserFromToken = () => {
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Add loading state
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
-      setLoading(true); // Start loading
+      setLoading(true);
       try {
         const user = await verifyUser();
         setUser(user);
       } catch (error) {
         setUser(null);
+
       } finally {
-        setLoading(false); // Finish loading
+        setLoading(false);
       }
     };
     fetchUser();

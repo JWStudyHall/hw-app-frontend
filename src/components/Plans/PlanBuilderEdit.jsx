@@ -39,7 +39,7 @@ const PlanBuilderEdit = () => {
       <div style={{ maxWidth: "700px", margin: "0 auto", padding: "1rem" }}>
         <h2>Sign in required</h2>
         <p>You must be signed in to edit plans.</p>
-        <Link to="/sign-in">Go to Sign In</Link>
+        <Link to="/app/sign-in">Go to Sign In</Link>
       </div>
     );
   }
@@ -53,7 +53,7 @@ const PlanBuilderEdit = () => {
         <h2>You cannot edit this plan</h2>
         <p>Only the owner can edit a plan.</p>
         <p>
-          <Link to={`/plans/${planId}`}>Back to Plan Detail</Link>
+          <Link to={`/app/plans/${planId}`}>Back to Plan Detail</Link>
         </p>
       </div>
     );

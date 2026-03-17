@@ -94,7 +94,7 @@ const TemplateDetail = () => {
           </div>
           {user?.id === template.user && (
           <button
-            onClick={() => navigate(`/templates/${templateId}/edit`)}
+            onClick={() => navigate(`/app/templates/${templateId}/edit`)}
             style={{
               padding: "10px 20px",
               backgroundColor: "#2196F3",

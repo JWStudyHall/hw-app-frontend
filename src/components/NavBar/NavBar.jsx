@@ -39,24 +39,24 @@ const NavBar = () => {
               Hi, <strong>{user.username}</strong>
             </span>
             <li>
-              <NavLink to="/exercises" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+              <NavLink to="/app/exercises" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
               >
                 Exercises
               </NavLink>
             </li>
             <li>
-              <NavLink to="/workouts" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+              <NavLink to="/app/workouts" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Workouts
               </NavLink>
             </li>
             <li>
-              <NavLink to="/explore" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+              <NavLink to="/app/explore" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Explore
               </NavLink>
             </li>
 
             <div className="user-section">
-              <NavLink to="/profile" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+              <NavLink to="/app/profile" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                 Profile
               </NavLink>
               <button onClick={handleSignOut} className="btn-signout">

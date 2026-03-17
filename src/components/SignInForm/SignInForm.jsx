@@ -1,10 +1,12 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext.jsx";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { signIn } from "../../services/authService.js";
 import "./SignInForm.css";
 
 const SignInForm = () => {
+  const location = useLocation();
+
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     username: "",
@@ -13,6 +15,18 @@ const SignInForm = () => {
 
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  // useEffect to get error message from location state
+  useEffect(() => {
+    console.log("SignIn location.state:", location.state);
+    const sessionMsg = location.state?.sessionExpiredMessage;
+    if (sessionMsg) {
+      setMessage(sessionMsg);
+      sessionStorage.removeItem("sessionExpired");
+    }
+    else {
+      setMessage("");
+    }
+  }, [location]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +39,7 @@ const SignInForm = () => {
     try {
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
-      navigate("/explore");
+      navigate("/app/explore");
     } catch (err) {
       setMessage(err.message);
     }

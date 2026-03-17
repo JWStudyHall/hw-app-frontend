@@ -175,7 +175,7 @@ const PlanBuilder = () => {
         ? await updatePlan(planId, payload)
         : await createPlan(payload);
 
-      navigate(`/plans/${savedPlan.id}`);
+      navigate(`/app/plans/${savedPlan.id}`);
     } catch (err) {
       const apiError =
         err?.response?.data?.detail ||

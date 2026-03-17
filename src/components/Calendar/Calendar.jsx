@@ -78,14 +78,14 @@ export default function Calendar() {
 
   const handleEdit = () => {
     if (popover.workoutId) {
-      navigate(`/workouts/${popover.workoutId}/edit`);
+      navigate(`/app/workouts/${popover.workoutId}/edit`);
       setPopover({ show: false, x: 0, y: 0, workoutId: null });
     }
   };
 
   const handleView = () => {
     if (popover.workoutId) {
-      navigate(`/workouts/${popover.workoutId}`);
+      navigate(`/app/workouts/${popover.workoutId}`);
       setPopover({ show: false, x: 0, y: 0, workoutId: null });
     }
   };
@@ -206,7 +206,7 @@ export default function Calendar() {
         customButtons={{
           createWorkout: {
             text: "+ Workout",
-            click: () => navigate("/workouts/new"),
+            click: () => navigate("/app/workouts/new"),
           },
         }}
       />

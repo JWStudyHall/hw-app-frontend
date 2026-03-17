@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { getWorkouts } from "../../services/workoutService.js";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const WorkoutList = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -20,12 +21,12 @@ const WorkoutList = () => {
     fetchWorkouts();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <main>
       <h1>Workouts</h1>
-      <Link to="/workouts/new">+ New Workout</Link>
+      <Link to="/app/workouts/new">+ New Workout</Link>
       <section>
         {workouts.length > 0 ? (
           workouts.map((workout) => (
@@ -39,7 +40,7 @@ const WorkoutList = () => {
             >
               <h3>{workout.title}</h3>
               <p>Status: {workout.status}</p>
-              <Link to={`/workouts/${workout.id}`}>View Details</Link>
+              <Link to={`/app/workouts/${workout.id}`}>View Details</Link>
             </div>
           ))
         ) : (

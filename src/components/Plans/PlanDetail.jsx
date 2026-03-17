@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from "react-router";
 import { getPlan, deletePlan } from "../../services/planService";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import { generateWorkoutsFromPlan } from "../../services/planService.js";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const PlanDetail = () => {
   const [plan, setPlan] = useState(null);
@@ -54,14 +55,14 @@ const PlanDetail = () => {
     setError("");
     try {
       await deletePlan(planId);
-      navigate("/plans");
+      navigate("/app/plans");
     } catch (err) {
       setError("Could not delete this plan. Please try again.");
       setDeleting(false);
     }
   };
 
-  if (loading) return <h3>Loading plan...</h3>;
+  if (loading) return <LoadingSpinner />;
   if (error && !plan) return <p style={{ color: "crimson" }}>{error}</p>;
   if (!plan) return <p>Plan not found.</p>;
 
@@ -141,7 +142,7 @@ const PlanDetail = () => {
         </button>
         {user?.id === plan.user ? (
           <>
-          <Link to={`/plans/${plan.id}/edit`}>
+          <Link to={`/app/plans/${plan.id}/edit`}>
             <button>Edit Plan</button>
           </Link>
           <button onClick={handleDelete} disabled={deleting}>

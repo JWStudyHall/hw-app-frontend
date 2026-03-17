@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router";
 import { getWorkout } from "../../services/workoutService.js";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import { deleteWorkout } from "../../services/workoutService.js";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const WorkoutDetail = () => {
   const { workoutId } = useParams();
@@ -31,10 +32,10 @@ const WorkoutDetail = () => {
     );
     if (!confirmed) return;
     await deleteWorkout(workoutId);
-    navigate("/workouts");
+    navigate("/app/workouts");
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
   if (!workout) return <p>Workout not found.</p>;
 
   // Your serializer uses 'items' as the key because of the 'source' mapping we fixed
@@ -97,13 +98,13 @@ const WorkoutDetail = () => {
       <footer style={{ marginTop: "30px" }}>
         {user?.id === workout.user && (
           <>
-            <Link to={`/workouts/${workoutId}/edit`}>
+            <Link to={`/app/workouts/${workoutId}/edit`}>
               <button>Edit Workout</button>
             </Link>
             <button onClick={handleDelete}>Delete Workout</button>
           </>
         )}
-        <Link to="/workouts">
+        <Link to="/app/workouts">
           <button>Back to Workouts</button>
         </Link>
       </footer>

@@ -23,11 +23,13 @@ import ExerciseLibrary from "./components/ExerciseLibrary/ExerciseLibrary.jsx";
 import Profile from "./components/Calendar/Profile.jsx";
 import Explore from "./components/Explore/Explore.jsx";
 import MyWorkouts from "./components/Workouts/MyWorkouts.jsx";
+import RequireAuth from "./components/RequireAuth/RequireAuth.jsx";
+import { LoadingSpinner } from "./components/LoadingSpinner/LoadingSpinner.jsx";
 
 const App = () => {
   const { user, loading } = useContext(UserContext);
   if (loading) {
-    return <div>Loading...</div>; // or a proper loading component
+    return <LoadingSpinner />; // or a proper loading component
   }
   return (
     <>
@@ -35,10 +37,13 @@ const App = () => {
       <Routes>
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
-
-        {/* Main Entry Point */}
-        <Route path="/" element={user ? <AppLayout /> : <Landing />}>
-          {user && (
+        <Route path="/" element={<Landing />} />
+        {/* App Routes Entry Point */}
+        <Route path="/app" element={
+          <RequireAuth>
+            <AppLayout />
+          </RequireAuth>
+        } >
             <>
               {/* Profile & Library */}
               <Route path="profile" element={<Profile />} />
@@ -74,7 +79,6 @@ const App = () => {
               {/* Explore */}
               <Route path="explore" element={<Explore />} />
             </>
-          )}
         </Route>
 
         {/* CATCH-ALL: Redirects unknown URLs to home */}

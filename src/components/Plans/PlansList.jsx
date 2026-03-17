@@ -67,12 +67,12 @@ const PlansList = () => {
       actions={{
         view: {
           label: "View Details",
-          path: (item) => `/plans/${item.id}`,
+          path: (item) => `/app/plans/${item.id}`,
           alwaysVisible: true
         },
         edit: {
           label: "Edit",
-          path: (item) => `/plans/${item.id}/edit`,
+          path: (item) => `/app/plans/${item.id}/edit`,
           requiresOwnership: true
         },
         delete: {
@@ -89,8 +89,8 @@ const PlansList = () => {
         }
       }}
       onAction={handleAction}
-      detailPath={(item) => `/plans/${item.id}`}
-      createPath="/plans/new"
+      detailPath={(item) => `/app/plans/${item.id}`}
+      createPath="/app/plans/new"
       createLabel="+ New Plan"
       scope={scope}
       onScopeChange={(newScope) => setSearchParams({ scope: newScope })}
@@ -101,7 +101,7 @@ const PlansList = () => {
       emptyState={{
         title: "Let's get moving!",
         message: "Create your first workout plan.",
-        action: { label: "Create Plan", path: "/plans/new" }
+        action: { label: "Create Plan", path: "/app/plans/new" }
       }}
     />
   );
